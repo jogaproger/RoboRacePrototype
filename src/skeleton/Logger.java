@@ -71,7 +71,7 @@ public class Logger {
 	}
 	
 	/**
-	 * Kiíratja a hívó metódus meghívását stacktrace alapján
+	 * Növeli a behúzást és kiíratja a hívó metódus meghívását stacktrace alapján
 	 *
 	 * @param obj hívó metódus this objektuma
 	 * @param arguments argumentumlista, string esetén érték, objektum esetén név íródik ki
@@ -109,7 +109,11 @@ public class Logger {
 		printTab();
 		System.out.println(str);
 	}
-	
+	/**
+	 * Jelöli a metódushívás végét és csökkenti a behúzást
+	 *
+	 * 
+	 */
 	public static void printCallEnd(){
 		behuzas -= tab;
 		printTab();

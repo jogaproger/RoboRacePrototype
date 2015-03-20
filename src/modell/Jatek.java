@@ -1,6 +1,8 @@
 package modell;
 import java.util.ArrayList;
 
+import modell.jatekobj.JatekObj;
+import modell.jatekobj.Robot;
 import modell.palya.Palya;
 import skeleton.Logger;
 
@@ -27,11 +29,61 @@ public class Jatek {
 		Logger.printCallEnd();
 	}
 	
+	/**
+	 * Játékobjektum hozzáadása a játékhoz
+	 * 
+	 */	
 	public void addJatekObj( JatekObj j ){
 		Logger.printCall(this, j);
 		
 		
 		Logger.printCallEnd();
+	}
+	
+	/**
+	 * Robot hozzáadása a játékhoz és lehelyezése
+	 * a következõ kezdõcellára
+	 * 
+	 */	
+	public void addRobot(Robot r){
+		Logger.printCall(this, r);
+		
+		addJatekObj(r);
+		
+		Logger.printCallEnd();	
+	}
+	
+	/**
+	 * Kilépés a játékból
+	 * 
+	 */	
+	public void kilepes(){
+		Logger.printCall(this);
+		
+		
+		Logger.printCallEnd();	
+	}
+
+	/**
+	 * Játék lejátszása
+	 * 
+	 */	
+	public void simulate(){
+		Logger.printCall(this);
+		
+		
+		Logger.printCallEnd();	
+	}
+	
+	/**
+	 * Pontok elküldése a ranglistának
+	 * 
+	 */	
+	public void commitPontok(){
+		Logger.printCall(this);
+		
+		
+		Logger.printCallEnd();	
 	}
 	
 }
