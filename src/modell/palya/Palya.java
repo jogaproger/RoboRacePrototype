@@ -1,6 +1,7 @@
 package modell.palya;
 
 import modell.Jatek;
+import modell.jatekobj.Ragacs;
 import skeleton.Logger;
 
 /**
@@ -29,14 +30,21 @@ public class Palya {
 	
 	public void betolt( String fajl ){
 		Logger.printCall(this, fajl);
+
+		cellak[0][0] = new Cella(this, 0, 0);
+		cellak[1][1] = new Cella(this, 1, 1);
+
+		Ragacs ragacs = new Ragacs();
+		cellak[1][1].add(ragacs);
+		jatek.addJatekObj(ragacs);
 		
 		Logger.printCallEnd();	
 	}
 	
-	public void getStartCell( int i ){
+	public Cella getStartCell( int i ){
 		Logger.printCall(this, ""+i);
-		
 		Logger.printCallEnd();	
+		return cellak[0][0];
 	}
 	
 	Cella cellaxy( int x, int y ){

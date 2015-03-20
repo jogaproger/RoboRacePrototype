@@ -22,6 +22,12 @@ public class Robot extends JatekObj{
 	private boolean csusztatott;
 	private int ugrasido;
 	
+
+	public Robot() {
+		Logger.printCall(this);
+		
+		Logger.printCallEnd();
+	}
 	
 	public void simulate() {
 		Logger.printCall(this);
@@ -76,8 +82,5 @@ public class Robot extends JatekObj{
 		
 		Logger.printCallEnd();
 	}
-	
-	
-	
 	
 }

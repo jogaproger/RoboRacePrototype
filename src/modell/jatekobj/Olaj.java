@@ -2,7 +2,7 @@ package modell.jatekobj;
 
 import skeleton.Logger;
 
-public class Olaj {
+public class Olaj extends JatekObj{
 	
 	public void simulate() {
 		Logger.printCall(this);

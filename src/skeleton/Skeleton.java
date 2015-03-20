@@ -3,9 +3,10 @@ package skeleton;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import skeleton.usecase.UseCase;
+
 
 public class Skeleton {
-
 	
 	public static void main( String[] args )
 	{

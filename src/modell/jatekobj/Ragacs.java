@@ -2,7 +2,7 @@ package modell.jatekobj;
 
 import skeleton.Logger;
 
-public class Ragacs {
+public class Ragacs extends JatekObj{
 	
 	public void simulate() {
 		Logger.printCall(this);
