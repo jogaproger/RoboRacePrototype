@@ -1,17 +1,24 @@
 package modell.palya;
 
+import java.util.ArrayList;
 import modell.jatekobj.JatekObj;
 import modell.jatekobj.Robot;
+import skeleton.Logger;
 
 public class Cella {
 
     private int x;
     private int y;
-    private JatekObj[] o;
+    private ArrayList<JatekObj> o;
     private Palya palya;
     
-    Cella(int x, int y) {
-
+    Cella(Palya p,int x, int y) {
+        this.x=x;
+        this.y=y;
+        o=new ArrayList<>();
+        this.palya=p;
+        
+        
     }
     /**
      * Kovetkezo cella lekerdezese,sebessegtol fuggoen
@@ -19,9 +26,9 @@ public class Cella {
      * @return 
      */
     public Cella getKov(Sebesseg s) {
-        int resultx = 0;
-        int resulty = 0;
-        Cella c = new Cella(resultx, resulty);
+        Logger.printCall(this, s);
+        Cella c = palya.cellaxy(x, y);
+        Logger.printCallEnd();
         return c;
     }
     /**
@@ -29,20 +36,28 @@ public class Cella {
      * @param j Lerakando jatekobjektum
      */
     public void add(JatekObj j) {
-
+        Logger.printCall(this, j);
+        o.add(j);
+        Logger.printCallEnd();
     }
     /**
      * Jatekobjektum eltavolitasa a cellarol
      * @param j Eltavolitando jatekobjektum
      */
     public void remove(JatekObj j) {
-
+        Logger.printCall(this, j);
+        o.remove(j);
+        Logger.printCallEnd();
     }
     /**
      * Robot ralep a cellara
      * 
      */
     public void ralep(Robot r) {
-
+        Logger.printCall(this, r);
+        for (JatekObj obj : o) {
+            o.ralep(r);
+        }
+        Logger.printCallEnd();
     }
 }

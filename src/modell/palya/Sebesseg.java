@@ -8,6 +8,7 @@ public class Sebesseg {
      /**
      *  Sebesseg nagysaganak lekerdezese
      * 
+     * @return 
      */
     public int getNagysag() {
         return 0;
