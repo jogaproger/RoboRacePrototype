@@ -11,6 +11,7 @@ public class Logger {
 
 	/**
 	 * Engedélyezi/letiltja a kiírást és a hozzá tartozó funkciókat
+	 * 
 	 * @param value ha true, engedélyezi, ha false, letiltja
 	 */
 	public static void setEnabled( boolean value ){
@@ -30,13 +31,20 @@ public class Logger {
 		
 		String name = names.get(obj);
 		
+		// Ha name==null, nekünk kell nevet alkotnunk
 		for( int i = 0 ; name == null ; i++ ){
-			String next = obj.getClass().getSimpleName().toLowerCase() + i;
+			String next = obj.getClass().getSimpleName().toLowerCase();
+			// Ha i>0, akkor sorszámot kap az objektum
+			if( i>0 )
+				next = next+i;
+			// Ha szabad a név, használjuk, egyébként keresünk tovább
 			if( !names.containsValue(next) )
 				name = next;
 			else
 				name = null;	// menjen tovább a keresés
 		}
+		
+		// Ha még nem tettük bele a nevet, most beletesszük
 		names.put( obj, name );
 		return name;
 		
@@ -49,8 +57,6 @@ public class Logger {
 	 * @param owner Tulajdonos objektum(Ha van)
 	 */
 	public static void setName( Object o, String name, Object owner ){
-		if( !enabled )
-			return;
 		if( owner == null )
 			names.put(o, name);
 		else
@@ -130,7 +136,6 @@ public class Logger {
 	/**
 	 * Jelöli a metódushívás végét és csökkenti a behúzást
 	 *
-	 * 
 	 */
 	public static void printCallEnd(){
 		if( !enabled )

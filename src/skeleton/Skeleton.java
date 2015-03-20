@@ -1,52 +1,40 @@
 package skeleton;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 
 public class Skeleton {
 
 	
 	public static void main( String[] args )
 	{
-		try{
-			new Skeleton().A();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.println("RoboRace - Szkeleton verzió");
+		System.out.println("56. Fixit Company");
+		System.out.println();
+		
+		boolean vege = false;
+		
+		while( !vege ){
+			System.out.println("Válassz az alábbi Use Case-ek közül.");
+			UseCase.Listaz();
+			System.out.println("Írd be a Use case sorszámát, vagy 0-t ha kis szeretnél lépni:");		
+			try{
+				int i = Integer.parseInt(br.readLine());
+				if(  i==0 )
+					vege = true;
+				else{
+					UseCase.Vegrehajt(i);
+				}
+			}
+			catch(Exception e){
+				System.out.println("Nem jó számot adtál meg, vagy helytelen formátumban");	
+				continue;
+			}
 		}
-		catch( Exception e )
-		{
-			e.printStackTrace();	
-		}
-	}
-	
-	void B(){
-		Logger.printCall(this, "random string as B's param");
-		Logger.printCallEnd();		
-	}
-	
-	void C(){
-		Logger.printCall(this);
-		
-		D(this, 3);
-		
-		Logger.printCallEnd();		
-	}
-	
-	void D( Skeleton param, int i )
-	{
-		// Mindig thissel kezdõdik
-		// az elsõ paraméter egy Skeletonobjektum, aminek neve van ezért simán átadjuk
-		// A második egy sima érték, ezt stringgé konvertáljuk és úgy adjuk át
-		Logger.printCall(this, param, ""+i );
-		
-		Logger.print("Egyéb szöveg kiírása D-bõl");
-		
-		Logger.printCallEnd();
-	}
-	
-	void A(){
-		Logger.printCall(this);
-		
-		B();
-		C();
-		
-		Logger.printCallEnd();		
+
 	}
 	
 }
