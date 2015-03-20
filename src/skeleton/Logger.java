@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Logger {
 
-	static Map<Object, String> names = new HashMap<Object, String>();
-	static final int tab = 10;	// Egy fuggvenyhivas ennyi behuzas
-	static int behuzas = 0;
+	private static Map<Object, String> names = new HashMap<Object, String>();
+	private static final int tab = 10;	// Egy fuggvenyhivas ennyi behuzas
+	private static int behuzas = 0;
 	
 	/**
 	 * Megadja az objektumhoz tartozó nevet, amit kiíratunk
@@ -15,7 +15,7 @@ public class Logger {
 	 *
 	 * @param o  Az objektum, amelynek ismerni szeretnénk a nevét
 	 */
-	static String resolveName( Object o ){
+	public static String resolveName( Object o ){
 		if( o == null )
 			return "null";
 		
@@ -36,7 +36,7 @@ public class Logger {
 	 * @param o  Az objektum, amelynek beállítjuk a nevét
 	 * @param name  Az objektum új neve
 	 */
-	static void setName( Object o, Object owner, String name ){
+	public static void setName( Object o, Object owner, String name ){
 		if( owner == null )
 			names.put(o, name);
 		else
@@ -47,7 +47,7 @@ public class Logger {
 	 * Kiírja a behúzásnak megfelelõ számú space-et
 	 * 
 	 */
-	public static void printTab(){
+	private static void printTab(){
 		for( int i = 0 ; i < behuzas ; i++ )	
 			System.out.print(" ");
 	}
@@ -55,7 +55,7 @@ public class Logger {
 	 * Egy tabnyi jobbra nyilat rajzol
 	 * 
 	 */
-	public static void printArrowRight(){
+	private static void printArrowRight(){
 		for( int i = 0 ; i < tab-1 ; i++ )	
 			System.out.print("-");
 		System.out.print(">");
@@ -64,7 +64,7 @@ public class Logger {
 	 * Egy tabnyi balra nyilat rajzol
 	 * 
 	 */
-	public static void printArrowLeft(){
+	private static void printArrowLeft(){
 		System.out.print("<");
 		for( int i = 0 ; i < tab+3 ; i++ )	
 			System.out.print("-");
@@ -76,7 +76,7 @@ public class Logger {
 	 * @param obj hívó metódus this objektuma
 	 * @param arguments argumentumlista, string esetén érték, objektum esetén név íródik ki
 	 */
-	static void printCall( Object obj, Object... arguments ){
+	public static void printCall( Object obj, Object... arguments ){
 		printTab();
 		printArrowRight();
 		behuzas += tab;
@@ -105,12 +105,12 @@ public class Logger {
 	 * @param str Kiírandó sztring
 	 *
 	 */
-	static void print(String str){
+	public static void print(String str){
 		printTab();
 		System.out.println(str);
 	}
 	
-	static void printCallEnd(){
+	public static void printCallEnd(){
 		behuzas -= tab;
 		printTab();
 		printArrowLeft();	

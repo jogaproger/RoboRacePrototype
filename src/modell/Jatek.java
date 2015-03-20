@@ -1,6 +1,7 @@
 package modell;
 import java.util.ArrayList;
 
+import modell.palya.Palya;
 import skeleton.Logger;
 
 public class Jatek {
