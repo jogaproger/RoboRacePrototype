@@ -9,7 +9,7 @@ public abstract class UseCase {
 	String name;
 	
 	/** Usecase végrehajtása */
-	abstract public void run();
+	abstract public void execute();
 	
 	/** Usecase végrehajtása */
 	abstract public String getName();
@@ -18,9 +18,9 @@ public abstract class UseCase {
 	 * Uj játék kezdése
 	 *
 	 */
-	private class UjJatekUC extends UseCase{
+	static private class UjJatekUC extends UseCase{
 		@Override
-		public void run() {
+		public void execute() {
 			// Itt végrehajthatunk egy use case-t			
 		}
 
@@ -33,11 +33,12 @@ public abstract class UseCase {
 	
 	/**
 	 * Use Case definiálásához származtassuk le a UseCase osztályt
-	 * inner classként és adjuk hozzá a tömbhöz
+	 * statikus inner classként és adjuk hozzá a tömbhöz
 	 * 
 	 */
 	static UseCase[] useCases = {
-		new UjJatekUC()			
+		new UjJatekUC()		
+		
 	};
 	
 	static void UseCaseListaz(){
@@ -45,6 +46,16 @@ public abstract class UseCase {
 			System.out.println( ""+(i+1)+". "+useCases[i].getName());
 	}
 	
+	static boolean UseCaseVegrehajt(int i){
+		i--;	// 1-tõl van számozva, de nekünk 0-tól kell
+		if( i < 0 || i >= useCases.length )
+			return false;
+		
+		System.out.println(useCases[i].getName()+" végrehajtása:");
+		useCases[i].execute();
+				
+		return true;
+	}
 	
 	
 }

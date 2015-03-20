@@ -27,4 +27,22 @@ public class Palya {
 		Logger.printCallEnd();	
 	}
 	
+	public void betolt( String fajl ){
+		Logger.printCall(this, fajl);
+		
+		Logger.printCallEnd();	
+	}
+	
+	public void getStartCell( int i ){
+		Logger.printCall(this, ""+i);
+		
+		Logger.printCallEnd();	
+	}
+	
+	Cella cellaxy( int x, int y ){
+		Logger.printCall(this, ""+x, ""+y);
+		
+		Logger.printCallEnd();	
+		return cellak[x][y];
+	}
 }
