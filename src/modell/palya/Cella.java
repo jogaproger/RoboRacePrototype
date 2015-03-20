@@ -13,12 +13,14 @@ public class Cella {
     private Palya palya;
     
     Cella(Palya p,int x, int y) {
+        Logger.printCall(this);
+        
         this.x=x;
         this.y=y;
         o=new ArrayList<>();
         this.palya=p;
         
-        
+        Logger.printCallEnd();
     }
     /**
      * Kovetkezo cella lekerdezese,sebessegtol fuggoen
@@ -56,7 +58,7 @@ public class Cella {
     public void ralep(Robot r) {
         Logger.printCall(this, r);
         for (JatekObj obj : o) {
-            o.ralep(r);
+            obj.ralep(r);
         }
         Logger.printCallEnd();
     }
