@@ -5,28 +5,39 @@ import java.util.Map;
 public class Logger {
 
 	private static Map<Object, String> names = new HashMap<Object, String>();
-	private static final int tab = 10;	// Egy fuggvenyhivas ennyi behuzas
+	private static final int tab = 10;		// Egy fuggvenyhivas ennyi behuzas
 	private static int behuzas = 0;
+	private static boolean enabled = true;	// Engedélyezve van-e?
+
+	/**
+	 * Engedélyezi/letiltja a kiírást és a hozzá tartozó funkciókat
+	 * @param value ha true, engedélyezi, ha false, letiltja
+	 */
+	public static void setEnabled( boolean value ){
+		enabled = value;		
+	}
 	
 	/**
 	 * Megadja az objektumhoz tartozó nevet, amit kiíratunk
 	 * Ha nincs még neve, gyárt egyet OsztálynévSorszám
 	 * mintára
 	 *
-	 * @param o  Az objektum, amelynek ismerni szeretnénk a nevét
+	 * @param obj  Az objektum, amelynek ismerni szeretnénk a nevét
 	 */
-	public static String resolveName( Object o ){
-		if( o == null )
+	public static String resolveName( Object obj ){
+		if( obj == null )
 			return "null";
 		
-		String name = names.get(o);
+		String name = names.get(obj);
 		
 		for( int i = 0 ; name == null ; i++ ){
-			String next = o.getClass().getName().toLowerCase() + i;
+			String next = obj.getClass().getSimpleName().toLowerCase() + i;
 			if( !names.containsValue(next) )
 				name = next;
+			else
+				name = null;	// menjen tovább a keresés
 		}
-		names.put( o, name );
+		names.put( obj, name );
 		return name;
 		
 	}
@@ -35,8 +46,11 @@ public class Logger {
 	 *
 	 * @param o  Az objektum, amelynek beállítjuk a nevét
 	 * @param name  Az objektum új neve
+	 * @param owner Tulajdonos objektum(Ha van)
 	 */
-	public static void setName( Object o, Object owner, String name ){
+	public static void setName( Object o, String name, Object owner ){
+		if( !enabled )
+			return;
 		if( owner == null )
 			names.put(o, name);
 		else
@@ -77,6 +91,8 @@ public class Logger {
 	 * @param arguments argumentumlista, string esetén érték, objektum esetén név íródik ki
 	 */
 	public static void printCall( Object obj, Object... arguments ){
+		if( !enabled )
+			return;
 		printTab();
 		printArrowRight();
 		behuzas += tab;
@@ -106,6 +122,8 @@ public class Logger {
 	 *
 	 */
 	public static void print(String str){
+		if( !enabled )
+			return;
 		printTab();
 		System.out.println(str);
 	}
@@ -115,6 +133,8 @@ public class Logger {
 	 * 
 	 */
 	public static void printCallEnd(){
+		if( !enabled )
+			return;
 		behuzas -= tab;
 		printTab();
 		printArrowLeft();	
