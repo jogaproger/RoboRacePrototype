@@ -20,11 +20,14 @@ public class Jatek {
 		return instance;		
 	}
 	
-	public void ujJatek( String palya, int jatekosnum ){
-		Logger.printCall(this, palya, ""+jatekosnum);
+	public void ujJatek( String palyafajl, int jatekosnum ){
+		Logger.printCall(this, palyafajl, ""+jatekosnum);
 		
 		jatekosok = new Jatekos[jatekosnum];
 		objects = new ArrayList<JatekObj>();
+		
+		palya = new Palya(j);
+		palya.betolt(palyafajl);
 		
 		Logger.printCallEnd();
 	}
