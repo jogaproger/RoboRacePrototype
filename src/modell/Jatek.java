@@ -26,7 +26,7 @@ public class Jatek {
 		jatekosok = new Jatekos[jatekosnum];
 		objects = new ArrayList<JatekObj>();
 		
-		palya = new Palya(j);
+		palya = new Palya(this);
 		palya.betolt(palyafajl);
 		
 		Logger.printCallEnd();
