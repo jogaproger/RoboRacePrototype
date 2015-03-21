@@ -2,7 +2,7 @@ package modell.palya;
 
 
 /**
- * Irányt reprezentáló enumeráció
+ * Iranyt reprezentalo enumeracio
  *
  */
 public enum Irany {

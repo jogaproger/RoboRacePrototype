@@ -6,38 +6,38 @@ import modell.jatekobj.Robot;
 import modell.palya.Palya;
 import skeleton.Logger;
 /**
- * Játékot megvalósító osztály
+ * Jatekot megvalosito osztaly
  *
  */
 public class Jatek {
-	/** Elsõdleges Példány */
+	/** Elsodleges Peldany */
 	private static Jatek instance;
 	
-	/** Játékhoz tartozó ranglista */
+	/** Jatekhoz tartozo ranglista */
 	private Ranglista ranglista = new Ranglista();
-	/** Játékosok tömbje */
+	/** Jatekosok tombje */
 	private Jatekos[] jatekosok;
-	/** Játéevõ objektumok listája*/
+	/** Jateevo objektumok listaja*/
 	private ArrayList<JatekObj> objects;
-	/** A pálya, amelyen a játék zajlik */
+	/** A palya, amelyen a jatek zajlik */
 	private Palya palya;
-	/** Játék végét jelzi */
+	/** Jatek veget jelzi */
 	private boolean endflag;
-	/** Játék kezdete óta eltelt idõ */
+	/** Jatek kezdete ota eltelt ido */
 	private int ido;
-	/** robotok száma a pályán */
+	/** robotok szama a palyan */
 	private int robotszam;
 	
 	/**
-	 * bármely játékpéldány létrehozásakor változik az instance
+	 * barmely jatekpeldany letrehozasakor valtozik az instance
 	 */	
 	public Jatek(){
 		instance = this;		
 	}
 	
 	/**
-	 * Játék példányának visszaadása
-	 * @return Singleton példány
+	 * Jatek peldanyanak visszaadasa
+	 * @return Singleton peldany
 	 */
 	public static Jatek getInstance(){
 		return instance;		
@@ -54,13 +54,13 @@ public class Jatek {
 		palya.betolt(palyafajl);
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
-			jatekosok[i] = new Jatekos("Név"+i);
+			jatekosok[i] = new Jatekos("Nev"+i);
 		
 		Logger.printCallEnd();
 	}
 	
 	/**
-	 * Játékobjektum hozzáadása a játékhoz
+	 * Jatekobjektum hozzaadasa a jatekhoz
 	 * 
 	 */	
 	public void addJatekObj( JatekObj j ){
@@ -71,8 +71,8 @@ public class Jatek {
 	}
 	
 	/**
-	 * Robot hozzáadása a játékhoz és lehelyezése
-	 * a következõ kezdõcellára
+	 * Robot hozzaadasa a jatekhoz es lehelyezese
+	 * a kovetkezo kezdocellara
 	 * 
 	 */	
 	public void addRobot(Robot r){
@@ -86,7 +86,7 @@ public class Jatek {
 	}
 	
 	/**
-	 * Kilépés a játékból
+	 * Kilepes a jatekbol
 	 * 
 	 */	
 	public void kilepes(){
@@ -99,7 +99,7 @@ public class Jatek {
 	}
 
 	/**
-	 * Játék lejátszása
+	 * Jatek lejatszasa
 	 * 
 	 */	
 	public void simulate(){
@@ -110,7 +110,7 @@ public class Jatek {
 	}
 	
 	/**
-	 * Pontok elküldése a ranglistának
+	 * Pontok elkuldese a ranglistanak
 	 * 
 	 */	
 	public void commitPontok(){

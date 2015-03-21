@@ -9,24 +9,24 @@ public class Logger {
 	private static Map<Object, String> names = new HashMap<Object, String>();
 	private static final int tab = 15;		// Egy fuggvenyhivas ennyi behuzas
 	private static int behuzas = 0;
-	private static boolean enabled = true;	// Engedélyezve van-e?
+	private static boolean enabled = true;	// Engedelyezve van-e?
 	private static int maxDepth = 100;
 	public static int depth = 0;
 
 	
 	
 	/**
-	 * Kiírás mélységének meghatározása, mennyire menjünk bele alsó szintû
-	 * függvényhívásokba
-	 * @depth Ennyi db függvényhívás mélyre megyünk
+	 * Kiiras melysegenek meghatarozasa, mennyire menjunk bele also szintu
+	 * fuggvenyhivasokba
+	 * @depth Ennyi db fuggvenyhivas melyre megyunk
 	 */	
 	public static void setMaxDepth(int depth){
 		maxDepth = depth;
 	}
 	
 	/**
-	 * Névtár elengedése, mert a) nem használjuk a neveket
-	 * b) Nem akarjuk hogy a névtár miatt a használatlan objektumok
+	 * Nevtar elengedese, mert a) nem hasznaljuk a neveket
+	 * b) Nem akarjuk hogy a nevtar miatt a hasznalatlan objektumok
 	 * ne szabaduljanak fel
 	 */
 	public static void releaseNames(){
@@ -35,20 +35,20 @@ public class Logger {
 	
 	
 	/**
-	 * Engedélyezi/letiltja a kiírást és a hozzá tartozó funkciókat
+	 * Engedelyezi/letiltja a kiirast es a hozza tartozo funkciokat
 	 * 
-	 * @param value ha true, engedélyezi, ha false, letiltja
+	 * @param value ha true, engedelyezi, ha false, letiltja
 	 */
 	public static void setEnabled( boolean value ){
 		enabled = value;		
 	}
 	
 	/**
-	 * Megadja az objektumhoz tartozó nevet, amit kiíratunk
-	 * Ha nincs még neve, gyárt egyet OsztálynévSorszám
-	 * mintára
+	 * Megadja az objektumhoz tartozo nevet, amit kiiratunk
+	 * Ha nincs meg neve, gyart egyet OsztalynevSorszam
+	 * mintara
 	 *
-	 * @param obj  Az objektum, amelynek ismerni szeretnénk a nevét
+	 * @param obj  Az objektum, amelynek ismerni szeretnenk a nevet
 	 */
 	public static String resolveName( Object obj ){
 		if( obj == null )
@@ -56,29 +56,29 @@ public class Logger {
 		
 		String name = names.get(obj);
 		
-		// Ha name==null, nekünk kell nevet alkotnunk
+		// Ha name==null, nekunk kell nevet alkotnunk
 		for( int i = 0 ; name == null ; i++ ){
 			String next = obj.getClass().getSimpleName().toLowerCase();
-			// Ha i>0, akkor sorszámot kap az objektum
+			// Ha i>0, akkor sorszamot kap az objektum
 			if( i>0 )
 				next = next+i;
-			// Ha szabad a név, használjuk, egyébként keresünk tovább
+			// Ha szabad a nev, hasznaljuk, egyebkent keresunk tovabb
 			if( !names.containsValue(next) )
 				name = next;
 			else
-				name = null;	// menjen tovább a keresés
+				name = null;	// menjen tovabb a kereses
 		}
 		
-		// Ha még nem tettük bele a nevet, most beletesszük
+		// Ha meg nem tettuk bele a nevet, most beletesszuk
 		names.put( obj, name );
 		return name;
 		
 	}
 	/**
-	 * Beállítja egy objektum nevét
+	 * Beallitja egy objektum nevet
 	 *
-	 * @param o  Az objektum, amelynek beállítjuk a nevét
-	 * @param name  Az objektum új neve
+	 * @param o  Az objektum, amelynek beallitjuk a nevet
+	 * @param name  Az objektum uj neve
 	 * @param owner Tulajdonos objektum(Ha van)
 	 */
 	public static void setName( Object o, String name, Object owner ){
@@ -89,7 +89,7 @@ public class Logger {
 	}
 
 	/**
-	 * Kiírja a behúzásnak megfelelõ számú space-et
+	 * Kiirja a behuzasnak megfelelo szamu space-et
 	 * 
 	 */
 	private static void printTab(){
@@ -124,7 +124,7 @@ public class Logger {
 			System.out.print("-");
 	}
 	/**
-	 * Kiírja a szöveget, ha engedélyezett a loggolás
+	 * Kiirja a szoveget, ha engedelyezett a loggolas
 	 * 
 	 */
 	private static void print(String param){
@@ -134,7 +134,7 @@ public class Logger {
 		System.out.print(param);
 	}
 	/**
-	 * Kiírja a szöveget sortöréssel, ha engedélyezett a loggolás
+	 * Kiirja a szoveget sortoressel, ha engedelyezett a loggolas
 	 * 
 	 */
 	private static void println(String param){
@@ -144,10 +144,10 @@ public class Logger {
 		System.out.println(param);
 	}
 	/**
-	 * Kérdést tesz fel a felhasználónak
+	 * Kerdest tesz fel a felhasznalonak
 	 * 
-	 * @param question Feltett kérdés
-	 * @param answers Választási lehetõségek
+	 * @param question Feltett kerdes
+	 * @param answers Valasztasi lehetosegek
 	 * @return
 	 */
 	public static int askQuestion(String question, String... answers){
@@ -174,19 +174,19 @@ public class Logger {
 	}
 	
 	/**
-	 * Növeli a behúzást és kiíratja a hívó metódus meghívását stacktrace alapján
+	 * Noveli a behuzast es kiiratja a hivo metodus meghivasat stacktrace alapjan
 	 *
-	 * @param obj hívó metódus this objektuma
-	 * @param arguments argumentumlista, string esetén érték, objektum esetén név íródik ki
+	 * @param obj hivo metodus this objektuma
+	 * @param arguments argumentumlista, string eseten ertek, objektum eseten nev irodik ki
 	 */
 	public static void printCall( Object obj, Object... arguments ){
 		depth++;
-		// Lekérjük a StackTrace-bõl a 2vel fentebbi metódushívást
+		// Lekerjuk a StackTrace-bol a 2vel fentebbi metodushivast
 		StackTraceElement call = Thread.currentThread().getStackTrace()[2];
 		
 		String methodName = call.getMethodName();
-		// Konstruktorokat nem <init>, hanem Osztálynév(..) módon jelenítjük meg
-		// Valamint feléírjuk a <<create>> szignatúrát
+		// Konstruktorokat nem <init>, hanem Osztalynev(..) modon jelenitjuk meg
+		// Valamint feleirjuk a <<create>> szignaturat
 		if( methodName.equals("<init>") ){
 			methodName = obj.getClass().getSimpleName();
 			printTab();
@@ -198,15 +198,15 @@ public class Logger {
 		behuzas += tab;		
 		print( resolveName(obj) + "."+methodName+"(");
 		
-		// Argumentumokat vesszõvel elválasztva kiírjuk
+		// Argumentumokat vesszovel elvalasztva kiirjuk
 		for( int i = 0 ; i < arguments.length; i++ )
 		{
-			// 2. elemtõl fogva vesszõt is írunk elé
+			// 2. elemtol fogva vesszot is irunk ele
 			if( i>0 )
 				print(", ");	
 			Object param = arguments[i];
 			
-			// Ha a paraméter string, akkor értéket szeretnénk kiíratni
+			// Ha a parameter string, akkor erteket szeretnenk kiiratni
 			if( param instanceof String )
 				print( (String)param );
 			else
@@ -219,8 +219,8 @@ public class Logger {
 	}
 	
 	/**
-	 * Kiíratja a megadott sztringet az adott behúzás mellett
-	 * @param str Kiírandó sztring
+	 * Kiiratja a megadott sztringet az adott behuzas mellett
+	 * @param str Kiirando sztring
 	 *
 	 */
 	public static void printMessage(String str){
@@ -228,7 +228,7 @@ public class Logger {
 		println(str);
 	}
 	/**
-	 * Jelöli a metódushívás végét és csökkenti a behúzást
+	 * Jeloli a metodushivas veget es csokkenti a behuzast
 	 *
 	 */
 	public static void printCallEnd(){

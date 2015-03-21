@@ -12,16 +12,16 @@ public class Skeleton {
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		System.out.println("RoboRace - Szkeleton verzió");
+		System.out.println("RoboRace - Szkeleton verzio");
 		System.out.println("56. Fixit Company");
 		System.out.println();
 		
 		boolean vege = false;
 		
 		while( !vege ){
-			System.out.println("Válassz az alábbi Use Case-ek közül.");
+			System.out.println("Valassz az alabbi Use Case-ek kozul.");
 			UseCase.Listaz();
-			System.out.println("Írd be a Use case sorszámát, vagy 0-t ha kis szeretnél lépni:");		
+			System.out.println("Ird be a Use case sorszamat, vagy 0-t ha kis szeretnel lepni:");		
 			try{
 				int i = Integer.parseInt(br.readLine());
 				if(  i==0 )
@@ -35,7 +35,7 @@ public class Skeleton {
 				}
 			}
 			catch(Exception e){
-				System.out.println("Nem jó számot adtál meg, vagy helytelen formátumban");	
+				System.out.println("Nem jo szamot adtal meg, vagy helytelen formatumban");	
 				continue;
 			}
 		}

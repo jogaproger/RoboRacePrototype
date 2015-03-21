@@ -2,20 +2,20 @@ package modell;
 
 import skeleton.Logger;
 /**
- * Ranglista osztály
+ * Ranglista osztaly
  */
 public class Ranglista {
 	
 	/**
-	 * Név és hozzá tartozó pont tárolása
+	 * Nev es hozza tartozo pont tarolasa
 	 */
 	static class NevPont{
 		public String nev;
 		public int pont;
 		/**
-		 * Páros inicializálása
-		 * @param nev Játékos neve
-		 * @param pont Játékos pontszáma
+		 * Paros inicializalasa
+		 * @param nev Jatekos neve
+		 * @param pont Jatekos pontszama
 		 */
 		public NevPont( String nev, int pont ){
 			this.nev = nev;

@@ -36,7 +36,7 @@ public class Jatekos {
 		Logger.printCall(this);
 			
 		int i = Logger.askQuestion(
-					"Merre szeretned iranyitani a robotod?(csökkentett)",
+					"Merre szeretned iranyitani a robotod?(csokkentett)",
 					"Fel", "Le", "Jobbra", "Balra"
 				);
 		
