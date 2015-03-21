@@ -12,7 +12,7 @@ public class Blokk extends JatekObj {
 	
 	public void ralep(Robot r) {
 		Logger.printCall(this, r);
-		
+		r.kill();
 		Logger.printCallEnd();
 	}
 
