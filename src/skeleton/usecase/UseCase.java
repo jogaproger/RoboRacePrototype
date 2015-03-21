@@ -1,7 +1,6 @@
 package skeleton.usecase;
 
 import skeleton.Logger;
-import modell.Jatek;
 
 /**
  * Absztrakt UseCase osztály, amely egy UseCase felületét adja meg
@@ -27,8 +26,12 @@ public abstract class UseCase {
 	static UseCase[] useCases = {
 		new UC1_UjJatek(),
 		new UC2_Ranglista(),
-		new UC3_RobotVezerles()
-		
+		new UC3_RobotVezerles(),
+		new UC4_Kilepes(),
+		new UC5_JatekVege(),
+		new UC6_OlajfoltGatol(),
+		new UC7_RagacsLassit(),
+		new UC8_BlokkElpusztit()		
 	};
 	
 	public static void Listaz(){
