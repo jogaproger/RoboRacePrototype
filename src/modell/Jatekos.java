@@ -2,19 +2,30 @@ package modell;
 
 
 import modell.jatekobj.Robot;
+import modell.palya.Irany;
 import skeleton.Logger;
 
+/**
+ * Jatekos osztaly
+ */
 public class Jatekos {
+	/** Jatekos pontszama */
 	private int pontszam;
+	/** Jatekos neve */
 	private String nev;
+	/** Jatekos robotja */
 	private Robot robot;
 	
-	Jatekos( String nev )
+	public Jatekos( String nev )
 	{
 		Logger.printCall(this, nev);
+		
+		// Nev beallitasa
 		this.nev = nev;
 		robot = new Robot();
+		pontszam = 0;
 		
+		// A jateknak is tudnia kell a robotunkrol
 		Jatek.getInstance().addRobot(robot);
 		
 		Logger.printCallEnd();
@@ -32,13 +43,26 @@ public class Jatekos {
 		Logger.printCallEnd();		
 	}
 	
-	public void iranyit( Ranglista r ){
+	public void iranyit(){
 		Logger.printCall(this);
 			
 		int i = Logger.askQuestion(
-					"Merre szeretned iranyitani a robotod?(csokkentett)",
-					"Fel", "Le", "Jobbra", "Balra"
+					"Mit szeretnel csinalni a robotoddal?",
+					"Fel iranyit", 
+					"Le iranyit", 
+					"Ragacsot lerak", 
+					"Olajfoltot lerak"
 				);
+		switch( i )
+		{
+		case 0: Logger.printMessage("Rossz ertek, semmi sem fog tortenni!");
+		case 1: robot.iranyit(Irany.Fel);break;
+		case 2: robot.iranyit(Irany.Le);break;
+		case 3: robot.lerakRagacs();break;
+		case 4: robot.lerakOlaj();break;
+		
+		}
+		
 		
 		Logger.printCallEnd();		
 	}

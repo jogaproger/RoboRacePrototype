@@ -3,7 +3,6 @@ package modell.palya;
 
 /**
  * Iranyt reprezentalo enumeracio
- *
  */
 public enum Irany {
 	Fel,
@@ -14,5 +13,5 @@ public enum Irany {
 	JobbraLe,
 	JobbraFel,
 	BalraFel,
-	BalraLe	
+	BalraLe		
 }

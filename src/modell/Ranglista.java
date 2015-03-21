@@ -45,7 +45,7 @@ public class Ranglista {
 	
 	public void megjelenit(){
 		Logger.printCall(this);
-		
+		Logger.printMessage("Ranglista reprezentalasa");
 		Logger.printCallEnd();		
 	}
 }

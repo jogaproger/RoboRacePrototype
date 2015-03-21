@@ -66,6 +66,7 @@ public class Jatek {
 	public void addJatekObj( JatekObj j ){
 		Logger.printCall(this, j);
 		
+		this.objects.add(j);		
 		
 		Logger.printCallEnd();
 	}
@@ -73,12 +74,11 @@ public class Jatek {
 	/**
 	 * Robot hozzaadasa a jatekhoz es lehelyezese
 	 * a kovetkezo kezdocellara
-	 * 
 	 */	
 	public void addRobot(Robot r){
 		Logger.printCall(this, r);
 		
-		palya.getStartCell(robotszam);
+		r.addToCella(palya.getStartCell(robotszam));
 		robotszam++;
 		
 		addJatekObj(r);		

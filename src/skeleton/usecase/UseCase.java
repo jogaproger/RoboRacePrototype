@@ -3,25 +3,25 @@ package skeleton.usecase;
 import skeleton.Logger;
 
 /**
- * Absztrakt UseCase osztály, amely egy UseCase felületét adja meg
+ * Absztrakt UseCase osztaly, amely egy UseCase feluletet adja meg
  * Strategy minta
  * 
  */
 public abstract class UseCase {
 	String name;
 	
-	/** Usecase végrehajtása */
+	/** Usecase vegrehajtasa */
 	abstract public void execute();
 	
-	/** Usecase végrehajtása */
+	/** Usecase vegrehajtasa */
 	abstract public String getName();
 		
 	
 	/**
-	 * Use Case definiálásához származtassuk le a UseCase osztályt
-	 * írjunk metódust neki, amely végrehajtja, illetve lekérdi a nevét
-	 * majd adjuk hozzá ezen tömbhöz:
-	 * Tipp: Elõbb hozzáadni a tömbhöz, majd legeneráltatni eclipse-szel
+	 * Use Case definialasahoz szarmaztassuk le a UseCase osztalyt
+	 * irjunk metodust neki, amely vegrehajtja, illetve lekerdi a nevet
+	 * majd adjuk hozza ezen tombhoz:
+	 * Tipp: Elobb hozzaadni a tombhoz, majd legeneraltatni eclipse-szel
 	 */
 	static UseCase[] useCases = {
 		new UC1_UjJatek(),
@@ -42,13 +42,13 @@ public abstract class UseCase {
 	}
 	
 	public static boolean Vegrehajt(int i){
-		i--;	// 1-tõl van számozva, de nekünk 0-tól kell
+		i--;	// 1-tol van szamozva, de nekunk 0-tol kell
 		if( i < 0 || i >= useCases.length )
 			return false;
 		
-		System.out.println(useCases[i].getName()+" végrehajtása:");
+		System.out.println(useCases[i].getName()+" vegrehajtasa:");
 		useCases[i].execute();
-		Logger.releaseNames();	// Use Case által foglalt nevek már nem maradhatnak
+		Logger.releaseNames();	// Use Case altal foglalt nevek mar nem maradhatnak
 				
 		return true;
 	}
