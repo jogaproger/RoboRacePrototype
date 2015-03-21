@@ -12,7 +12,7 @@ public class Ragacs extends JatekObj{
 	
 	public void ralep(Robot r) {
 		Logger.printCall(this, r);
-		
+		r.lassit();
 		Logger.printCallEnd();
 	}
 	

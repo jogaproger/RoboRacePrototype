@@ -43,7 +43,7 @@ public class Robot extends JatekObj{
 	
 	public void kill() {
 		Logger.printCall(this);
-		
+                this.allapot=RobotAllapot.HALOTT;
 		Logger.printCallEnd();
 	}
 	
