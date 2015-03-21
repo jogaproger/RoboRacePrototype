@@ -29,10 +29,10 @@ public abstract class UseCase {
 		new UC3_RobotVezerles(),
 		new UC4_Kilepes(),
 		
-		new UC4_JatekKezdes(),
-		new UC5_JatekVege(),
-		new UC6_OlajfoltGatol(),
-		new UC7_RagacsLassit(),
+		new UC5_JatekKezdes(),
+		new UC6_JatekVege(),
+		new UC7_OlajfoltGatol(),
+		new UC9_RagacsLassit(),
 		new UC8_BlokkElpusztit()		
 	};
 	

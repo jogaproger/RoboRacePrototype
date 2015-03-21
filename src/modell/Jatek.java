@@ -116,6 +116,9 @@ public class Jatek {
 	public void commitPontok(){
 		Logger.printCall(this);
 		
+                for (Jatekos jatekos : jatekosok) {
+                   jatekos.commitPont(ranglista);
+                }
 		
 		Logger.printCallEnd();	
 	}

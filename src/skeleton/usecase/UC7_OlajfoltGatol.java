@@ -5,7 +5,7 @@ import modell.jatekobj.Robot;
 import modell.palya.Cella;
 import skeleton.Logger;
 
-public class UC6_OlajfoltGatol extends UseCase {
+public class UC7_OlajfoltGatol extends UseCase {
 
 	@Override
 	public void execute() {
@@ -20,7 +20,7 @@ public class UC6_OlajfoltGatol extends UseCase {
 
 	@Override
 	public String getName() {
-		return "Olajfolt gátol";
+		return "Olajfolt gï¿½tol";
 	}
 
 }

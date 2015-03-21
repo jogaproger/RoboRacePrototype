@@ -5,7 +5,7 @@ import modell.jatekobj.Robot;
 import modell.palya.Cella;
 import skeleton.Logger;
 
-public class UC7_RagacsLassit extends UseCase {
+public class UC9_RagacsLassit extends UseCase {
 
 	@Override
 	public void execute() {

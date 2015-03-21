@@ -3,7 +3,7 @@ package skeleton.usecase;
 import modell.Jatek;
 import skeleton.Logger;
 
-public class UC4_JatekKezdes extends UseCase {
+public class UC5_JatekKezdes extends UseCase {
 
 	@Override
 	public void execute() {
