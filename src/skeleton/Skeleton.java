@@ -27,7 +27,11 @@ public class Skeleton {
 				if(  i==0 )
 					vege = true;
 				else{
-					UseCase.Vegrehajt(i);
+					try{
+						UseCase.Vegrehajt(i);
+					}catch(Exception e){
+						e.printStackTrace();						
+					}
 				}
 			}
 			catch(Exception e){

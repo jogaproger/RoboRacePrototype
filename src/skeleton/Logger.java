@@ -10,7 +10,20 @@ public class Logger {
 	private static final int tab = 15;		// Egy fuggvenyhivas ennyi behuzas
 	private static int behuzas = 0;
 	private static boolean enabled = true;	// Engedélyezve van-e?
+	private static int maxDepth = 100;
+	public static int depth = 0;
 
+	
+	
+	/**
+	 * Kiírás mélységének meghatározása, mennyire menjünk bele alsó szintû
+	 * függvényhívásokba
+	 * @depth Ennyi db függvényhívás mélyre megyünk
+	 */	
+	public static void setMaxDepth(int depth){
+		maxDepth = depth;
+	}
+	
 	/**
 	 * Névtár elengedése, mert a) nem használjuk a neveket
 	 * b) Nem akarjuk hogy a névtár miatt a használatlan objektumok
@@ -80,6 +93,9 @@ public class Logger {
 	 * 
 	 */
 	private static void printTab(){
+		if( !enabled || maxDepth<depth )
+			return;
+			
 		for( int i = 0 ; i < behuzas ; i++ )	
 			System.out.print(" ");
 	}
@@ -88,6 +104,9 @@ public class Logger {
 	 * 
 	 */
 	private static void printArrowRight(){
+		if( !enabled || maxDepth<depth )
+			return;
+			
 		for( int i = 0 ; i < tab-1 ; i++ )	
 			System.out.print("-");
 		System.out.print(">");
@@ -97,9 +116,32 @@ public class Logger {
 	 * 
 	 */
 	private static void printArrowLeft(){
+		if( !enabled || maxDepth<depth )
+			return;
+			
 		System.out.print("<");
 		for( int i = 0 ; i < tab+3 ; i++ )	
 			System.out.print("-");
+	}
+	/**
+	 * Kiírja a szöveget, ha engedélyezett a loggolás
+	 * 
+	 */
+	private static void print(String param){
+		if( !enabled || maxDepth<depth )
+			return;
+			
+		System.out.print(param);
+	}
+	/**
+	 * Kiírja a szöveget sortöréssel, ha engedélyezett a loggolás
+	 * 
+	 */
+	private static void println(String param){
+		if( !enabled || maxDepth<depth )
+			return;
+			
+		System.out.println(param);
 	}
 	/**
 	 * Kérdést tesz fel a felhasználónak
@@ -112,14 +154,13 @@ public class Logger {
 		BufferedReader br = new BufferedReader(
 				new InputStreamReader(System.in)
 				);
-		printTab();
-		System.out.println(question);
+		printMessage(question);
 		for( int i = 0 ; i < answers.length ; i++ )
 		{
-			printTab();
-			System.out.println(""+(i+1)+"."+answers[i]);
+			printMessage(""+(i+1)+"."+answers[i]);
 		}
 		try{
+			printTab();
 			int i = Integer.parseInt(br.readLine());
 			if( i < 1 || i > answers.length )
 			{
@@ -139,9 +180,7 @@ public class Logger {
 	 * @param arguments argumentumlista, string esetén érték, objektum esetén név íródik ki
 	 */
 	public static void printCall( Object obj, Object... arguments ){
-		if( !enabled )
-			return;
-		
+		depth++;
 		// Lekérjük a StackTrace-bõl a 2vel fentebbi metódushívást
 		StackTraceElement call = Thread.currentThread().getStackTrace()[2];
 		
@@ -151,31 +190,31 @@ public class Logger {
 		if( methodName.equals("<init>") ){
 			methodName = obj.getClass().getSimpleName();
 			printTab();
-			System.out.println("  <<create>>");			
+			println("  <<create>>");			
 		}
 		
 		printTab();
 		printArrowRight();
 		behuzas += tab;		
-		System.out.print( resolveName(obj) + "."+methodName+"(");
+		print( resolveName(obj) + "."+methodName+"(");
 		
 		// Argumentumokat vesszõvel elválasztva kiírjuk
 		for( int i = 0 ; i < arguments.length; i++ )
 		{
 			// 2. elemtõl fogva vesszõt is írunk elé
 			if( i>0 )
-				System.out.print(", ");	
+				print(", ");	
 			Object param = arguments[i];
 			
 			// Ha a paraméter string, akkor értéket szeretnénk kiíratni
 			if( param instanceof String )
-				System.out.print( (String)param );
+				print( (String)param );
 			else
-				System.out.print( resolveName(param) );
+				print( resolveName(param) );
 			
 		}
 		
-		System.out.println(")");
+		println(")");
 		
 	}
 	
@@ -184,23 +223,20 @@ public class Logger {
 	 * @param str Kiírandó sztring
 	 *
 	 */
-	public static void print(String str){
-		if( !enabled )
-			return;
+	public static void printMessage(String str){
 		printTab();
-		System.out.println(str);
+		println(str);
 	}
 	/**
 	 * Jelöli a metódushívás végét és csökkenti a behúzást
 	 *
 	 */
 	public static void printCallEnd(){
-		if( !enabled )
-			return;
 		behuzas -= tab;
-		/*printTab();
+		printTab();
 		printArrowLeft();	
-		System.out.println();*/
+		println("");
+		depth--;
 	}
 	
 	

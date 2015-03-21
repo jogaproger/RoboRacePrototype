@@ -10,8 +10,8 @@ import skeleton.Logger;
  *
  */
 public class Jatek {
-	/** Singleton Példány */
-	private static Jatek instance = new Jatek();
+	/** Elsõdleges Példány */
+	private static Jatek instance;
 	
 	/** Játékhoz tartozó ranglista */
 	private Ranglista ranglista = new Ranglista();
@@ -29,7 +29,14 @@ public class Jatek {
 	private int robotszam;
 	
 	/**
-	 * Játékos példányának visszaadása
+	 * bármely játékpéldány létrehozásakor változik az instance
+	 */	
+	public Jatek(){
+		instance = this;		
+	}
+	
+	/**
+	 * Játék példányának visszaadása
 	 * @return Singleton példány
 	 */
 	public static Jatek getInstance(){
@@ -86,7 +93,7 @@ public class Jatek {
 		Logger.printCall(this);
 		
 		endflag = true;
-		Logger.print("endflag = true");
+		Logger.printMessage("endflag = true");
 		
 		Logger.printCallEnd();	
 	}
