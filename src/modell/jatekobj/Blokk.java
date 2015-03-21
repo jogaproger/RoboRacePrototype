@@ -6,7 +6,7 @@ public class Blokk extends JatekObj {
 	
 	public void simulate() {
 		Logger.printCall(this);
-		
+		ss
 		Logger.printCallEnd();
 	}
 	
