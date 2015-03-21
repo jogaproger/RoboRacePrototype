@@ -4,14 +4,14 @@ import modell.Jatek;
 import skeleton.Logger;
 
 /**
- * Új játék use case megvalósítása
+ * Uj jatek use case megvalositasa
  *
  */
 public class UC1_UjJatek extends UseCase {
 
 	@Override
 	public void execute() {
-		// Inicializálás, ilyenkor még nem írunk ki
+		// Inicializalas, ilyenkor meg nem irunk ki
 		Logger.setEnabled(false);
 		Jatek jatek = new Jatek();	
 		

@@ -39,7 +39,9 @@ public class Cella {
      */
     public void add(JatekObj j) {
         Logger.printCall(this, j);
-        o.add(j);
+        
+	    o.add(j);
+        
         Logger.printCallEnd();
     }
     /**

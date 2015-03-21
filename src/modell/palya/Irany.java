@@ -2,8 +2,7 @@ package modell.palya;
 
 
 /**
- * Irányt reprezentáló enumeráció
- *
+ * Iranyt reprezentalo enumeracio
  */
 public enum Irany {
 	Fel,
@@ -14,5 +13,5 @@ public enum Irany {
 	JobbraLe,
 	JobbraFel,
 	BalraFel,
-	BalraLe	
+	BalraLe		
 }
