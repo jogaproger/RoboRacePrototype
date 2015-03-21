@@ -1,14 +1,26 @@
 package skeleton;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Logger {
 
 	private static Map<Object, String> names = new HashMap<Object, String>();
-	private static final int tab = 10;		// Egy fuggvenyhivas ennyi behuzas
+	private static final int tab = 15;		// Egy fuggvenyhivas ennyi behuzas
 	private static int behuzas = 0;
 	private static boolean enabled = true;	// Engedélyezve van-e?
 
+	/**
+	 * Névtár elengedése, mert a) nem használjuk a neveket
+	 * b) Nem akarjuk hogy a névtár miatt a használatlan objektumok
+	 * ne szabaduljanak fel
+	 */
+	public static void releaseNames(){
+		names = new HashMap<Object, String>();
+	}
+	
+	
 	/**
 	 * Engedélyezi/letiltja a kiírást és a hozzá tartozó funkciókat
 	 * 
@@ -89,6 +101,36 @@ public class Logger {
 		for( int i = 0 ; i < tab+3 ; i++ )	
 			System.out.print("-");
 	}
+	/**
+	 * Kérdést tesz fel a felhasználónak
+	 * 
+	 * @param question Feltett kérdés
+	 * @param answers Választási lehetõségek
+	 * @return
+	 */
+	public static int askQuestion(String question, String... answers){
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(System.in)
+				);
+		printTab();
+		System.out.println(question);
+		for( int i = 0 ; i < answers.length ; i++ )
+		{
+			printTab();
+			System.out.println(""+(i+1)+"."+answers[i]);
+		}
+		try{
+			int i = Integer.parseInt(br.readLine());
+			if( i < 1 || i > answers.length )
+			{
+				return 0;
+			}
+			return i;
+		}
+		catch(Exception e){
+		}
+		return 0;
+	}
 	
 	/**
 	 * Növeli a behúzást és kiíratja a hívó metódus meghívását stacktrace alapján
@@ -99,18 +141,33 @@ public class Logger {
 	public static void printCall( Object obj, Object... arguments ){
 		if( !enabled )
 			return;
-		printTab();
-		printArrowRight();
-		behuzas += tab;
+		
+		// Lekérjük a StackTrace-bõl a 2vel fentebbi metódushívást
 		StackTraceElement call = Thread.currentThread().getStackTrace()[2];
 		
-		System.out.print( resolveName(obj) + "."+call.getMethodName()+"(");
+		String methodName = call.getMethodName();
+		// Konstruktorokat nem <init>, hanem Osztálynév(..) módon jelenítjük meg
+		// Valamint feléírjuk a <<create>> szignatúrát
+		if( methodName.equals("<init>") ){
+			methodName = obj.getClass().getSimpleName();
+			printTab();
+			System.out.println("  <<create>>");			
+		}
+		
+		printTab();
+		printArrowRight();
+		behuzas += tab;		
+		System.out.print( resolveName(obj) + "."+methodName+"(");
+		
+		// Argumentumokat vesszõvel elválasztva kiírjuk
 		for( int i = 0 ; i < arguments.length; i++ )
 		{
+			// 2. elemtõl fogva vesszõt is írunk elé
 			if( i>0 )
-				System.out.print(", ");
+				System.out.print(", ");	
 			Object param = arguments[i];
 			
+			// Ha a paraméter string, akkor értéket szeretnénk kiíratni
 			if( param instanceof String )
 				System.out.print( (String)param );
 			else
@@ -141,9 +198,9 @@ public class Logger {
 		if( !enabled )
 			return;
 		behuzas -= tab;
-		printTab();
+		/*printTab();
 		printArrowLeft();	
-		System.out.println();
+		System.out.println();*/
 	}
 	
 	
