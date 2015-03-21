@@ -20,8 +20,7 @@ public class UC6_OlajfoltGatol extends UseCase {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Olajfolt gátol";
 	}
 
 }

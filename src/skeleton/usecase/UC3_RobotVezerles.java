@@ -10,7 +10,7 @@ public class UC3_RobotVezerles extends UseCase {
 
 	@Override
 	public String getName() {
-		return "Robot vezérlés";
+		return "Robot vezerles";
 	}
 
 }

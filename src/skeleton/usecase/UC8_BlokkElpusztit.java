@@ -20,8 +20,7 @@ public class UC8_BlokkElpusztit extends UseCase {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Blokk elpusztit";
 	}
 
 }

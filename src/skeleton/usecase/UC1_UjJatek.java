@@ -22,7 +22,7 @@ public class UC1_UjJatek extends UseCase {
 
 	@Override
 	public String getName() {
-		return "Új játék";
+		return "Uj jatek";
 	}
 
 }

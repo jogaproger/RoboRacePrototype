@@ -10,8 +10,7 @@ public class UC5_JatekVege extends UseCase {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Jatek vege";
 	}
 
 }

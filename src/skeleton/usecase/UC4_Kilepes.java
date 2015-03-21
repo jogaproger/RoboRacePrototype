@@ -10,8 +10,7 @@ public class UC4_Kilepes extends UseCase {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Kilepes";
 	}
 
 }

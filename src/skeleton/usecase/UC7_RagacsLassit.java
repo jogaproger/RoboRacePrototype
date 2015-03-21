@@ -20,8 +20,7 @@ public class UC7_RagacsLassit extends UseCase {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Ragacs lassit";
 	}
 
 }

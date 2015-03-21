@@ -21,7 +21,7 @@ public class UC4_JatekKezdes extends UseCase {
 
 	@Override
 	public String getName() {
-		return "Játék kezdés";
+		return "Jatek kezdes";
 	}
 
 }
