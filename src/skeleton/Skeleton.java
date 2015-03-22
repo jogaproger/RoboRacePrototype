@@ -55,7 +55,7 @@ public class Skeleton {
 				// Ezt az exceptiont a parseInt dobhatja
 				System.out.println("Helytelen szamformatum!");	
 			}
-			System.out.println("Nyomj entert a folytatáshoz.");
+			System.out.println("Nyomj entert a folytatashoz.");
 			try {
 				br.readLine();
 			} catch (IOException e) {

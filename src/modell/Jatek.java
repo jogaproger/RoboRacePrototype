@@ -14,7 +14,7 @@ public class Jatek {
 	private static Jatek instance;
 	
 	/** Jatekhoz tartozo ranglista */
-	private Ranglista ranglista = new Ranglista();
+	private Ranglista ranglista;
 	/** Jatekosok tombje */
 	private Jatekos[] jatekosok;
 	/** Jateevo objektumok listaja*/
@@ -33,6 +33,7 @@ public class Jatek {
 	 */	
 	public Jatek(){
 		instance = this;		
+		ranglista = new Ranglista();
 	}
 	
 	/**
@@ -116,9 +117,9 @@ public class Jatek {
 	public void commitPontok(){
 		Logger.printCall(this);
 		
-                for (Jatekos jatekos : jatekosok) {
-                   jatekos.commitPont(ranglista);
-                }
+        for (Jatekos jatekos : jatekosok) 
+           jatekos.commitPont(ranglista);
+        
 		
 		Logger.printCallEnd();	
 	}

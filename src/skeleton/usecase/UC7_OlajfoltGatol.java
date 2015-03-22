@@ -20,7 +20,7 @@ public class UC7_OlajfoltGatol extends UseCase {
 
 	@Override
 	public String getName() {
-		return "Olajfolt g�tol";
+		return "Olajfolt gatol";
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 public class Logger {
 
 	private static Map<Object, String> names = new HashMap<Object, String>();
-	private static final int tab = 15;		// Egy fuggvenyhivas ennyi behuzas
+	private static final int tab = 10;		// Egy fuggvenyhivas ennyi behuzas
 	private static int behuzas = 0;
 	private static boolean enabled = true;	// Engedelyezve van-e?
 	private static int maxDepth = 100;
@@ -57,10 +57,10 @@ public class Logger {
 		String name = names.get(obj);
 		
 		// Ha name==null, nekunk kell nevet alkotnunk
-		for( int i = 0 ; name == null ; i++ ){
+		for( int i = 1 ; name == null ; i++ ){
 			String next = obj.getClass().getSimpleName().toLowerCase();
-			// Ha i>0, akkor sorszamot kap az objektum
-			if( i>0 )
+			// Ha i>1, akkor sorszamot kap az objektum
+			if( i>1 )
 				next = next+i;
 			// Ha szabad a nev, hasznaljuk, egyebkent keresunk tovabb
 			if( !names.containsValue(next) )
@@ -75,7 +75,8 @@ public class Logger {
 		
 	}
 	/**
-	 * Beallitja egy objektum nevet
+	 * Beallitja egy objektum nevet és ha van valami tulajdonosa 
+	 * akkor beveszi a nevebe
 	 *
 	 * @param o  Az objektum, amelynek beallitjuk a nevet
 	 * @param name  Az objektum uj neve

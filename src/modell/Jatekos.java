@@ -38,7 +38,7 @@ public class Jatekos {
 	}
 	
 	public void commitPont( Ranglista r ){
-		Logger.printCall(this,  ""+r);
+		Logger.printCall(this,  r);
 		
 		Logger.printCallEnd();		
 	}
