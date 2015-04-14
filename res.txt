@@ -1,0 +1,29 @@
+      24 text files.
+classified 24 files      24 unique files.                              
+       6 files ignored.
+
+language,filename,blank,comment,code,"http://cloc.sourceforge.net v 1.62  T=0.08 s (302.5 files/s, 15476.3 lines/s)"
+Java,src\skeleton\Logger.java,30,81,132
+Java,src\modell\jatekobj\Robot.java,16,49,74
+Java,src\modell\Jatek.java,25,39,59
+Java,src\modell\Jatekos.java,17,8,45
+Java,src\modell\palya\Cella.java,6,17,42
+Java,src\skeleton\Skeleton.java,11,0,42
+Java,src\modell\palya\Palya.java,12,8,36
+Java,src\skeleton\usecase\UseCase.java,13,13,31
+Java,src\modell\Ranglista.java,10,11,30
+Java,src\skeleton\usecase\UC6_OlajfoltGatol.java,5,0,21
+Java,src\skeleton\usecase\UC7_RagacsLassit.java,5,0,21
+Java,src\skeleton\usecase\UC8_BlokkElpusztit.java,5,0,21
+Java,src\skeleton\usecase\UC3_RobotVezerles.java,8,3,19
+Java,src\skeleton\usecase\UC4_JatekKezdes.java,7,0,19
+Java,src\modell\jatekobj\JatekObj.java,11,0,18
+Java,src\modell\palya\Sebesseg.java,8,21,17
+Java,src\skeleton\usecase\UC1_UjJatek.java,7,5,16
+Java,src\skeleton\usecase\UC2_Ranglista.java,6,0,16
+Java,src\modell\jatekobj\Ragacs.java,8,0,13
+Java,src\modell\jatekobj\Blokk.java,6,0,13
+Java,src\modell\jatekobj\Olaj.java,9,0,13
+Java,src\modell\palya\Irany.java,2,4,12
+Java,src\skeleton\usecase\UC4_Kilepes.java,5,1,10
+Java,src\skeleton\usecase\UC5_JatekVege.java,5,1,10

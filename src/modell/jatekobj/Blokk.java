@@ -1,6 +1,6 @@
 package modell.jatekobj;
 
-import skeleton.Logger;
+import main.Logger;
 
 public class Blokk extends JatekObj {
 	

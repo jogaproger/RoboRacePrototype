@@ -1,6 +1,6 @@
 package modell.jatekobj;
 
-import skeleton.Logger;
+import main.Logger;
 import modell.palya.Cella;
 /**
  * Absztrakt jatekobjektum 

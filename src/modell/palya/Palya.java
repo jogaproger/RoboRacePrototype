@@ -2,7 +2,7 @@ package modell.palya;
 
 import modell.Jatek;
 import modell.jatekobj.Ragacs;
-import skeleton.Logger;
+import main.Logger;
 
 /**
  *	Pálya osztály
@@ -25,6 +25,7 @@ public class Palya {
 	 */
 	public Palya(Jatek j){
 		Logger.printCall(this, j);
+		
 		jatek = j;
 		szelesseg = magassag = meret;
 		cellak = new Cella[szelesseg][magassag];
@@ -53,7 +54,7 @@ public class Palya {
 	 * @return Valamelyik sarokcella i-tol fuggoen
 	 */
 	public Cella getStartCell( int i ){
-		Logger.printCall(this, ""+i);
+		Logger.printCall(this, new Integer(i));
 		Logger.printCallEnd();	
 		return cellak[0][0];
 	}

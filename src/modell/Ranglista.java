@@ -1,6 +1,6 @@
 package modell;
 
-import skeleton.Logger;
+import main.Logger;
 /**
  * Ranglista osztaly
  */
@@ -38,7 +38,7 @@ public class Ranglista {
 	}
 	
 	public void commit(String nev, int pont){
-		Logger.printCall(this, nev, ""+pont);
+		Logger.printCall(this, nev, new Integer(pont));
 		
 		Logger.printCallEnd();		
 	}

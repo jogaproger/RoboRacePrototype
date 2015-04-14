@@ -1,8 +1,8 @@
 package modell.jatekobj;
 
-import skeleton.Logger;
+import main.Logger;
 
-public class Olaj extends JatekObj{
+public class Olaj extends Folt{
 	
 	/**
 	 * Default konstruktor

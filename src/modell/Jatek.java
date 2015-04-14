@@ -1,17 +1,15 @@
 package modell;
 import java.util.ArrayList;
 
+import main.Logger;
 import modell.jatekobj.JatekObj;
 import modell.jatekobj.Robot;
 import modell.palya.Palya;
-import skeleton.Logger;
 /**
  * Jatekot megvalosito osztaly
  *
  */
 public class Jatek {
-	/** Elsodleges Peldany */
-	private static Jatek instance;
 	
 	/** Jatekhoz tartozo ranglista */
 	private Ranglista ranglista;
@@ -31,21 +29,11 @@ public class Jatek {
 	/**
 	 * barmely jatekpeldany letrehozasakor valtozik az instance
 	 */	
-	public Jatek(){
-		instance = this;		
+	public Jatek(){		
 		ranglista = new Ranglista();
 	}
 	
-	/**
-	 * Jatek peldanyanak visszaadasa
-	 * @return Singleton peldany
-	 */
-	public static Jatek getInstance(){
-		return instance;		
-	}
-	
 	public void ujJatek( String palyafajl, int jatekosnum ){
-		Logger.printCall(this, palyafajl, ""+jatekosnum);
 		
 		jatekosok = new Jatekos[jatekosnum];
 		objects = new ArrayList<JatekObj>();
@@ -55,9 +43,7 @@ public class Jatek {
 		palya.betolt(palyafajl);
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
-			jatekosok[i] = new Jatekos("Nev"+i);
-		
-		Logger.printCallEnd();
+			jatekosok[i] = new Jatekos("Nev"+i, this);
 	}
 	
 	/**
@@ -65,11 +51,9 @@ public class Jatek {
 	 * 
 	 */	
 	public void addJatekObj( JatekObj j ){
-		Logger.printCall(this, j);
 		
 		this.objects.add(j);		
 		
-		Logger.printCallEnd();
 	}
 	
 	/**
@@ -77,13 +61,11 @@ public class Jatek {
 	 * a kovetkezo kezdocellara
 	 */	
 	public void addRobot(Robot r){
-		Logger.printCall(this, r);
 		
 		r.addToCella(palya.getStartCell(robotszam));
 		robotszam++;
 		
 		addJatekObj(r);		
-		Logger.printCallEnd();	
 	}
 	
 	/**
@@ -91,12 +73,8 @@ public class Jatek {
 	 * 
 	 */	
 	public void kilepes(){
-		Logger.printCall(this);
-		
+		Logger.printMessage("endflag set true");
 		endflag = true;
-		Logger.printMessage("endflag = true");
-		
-		Logger.printCallEnd();	
 	}
 
 	/**
@@ -106,8 +84,8 @@ public class Jatek {
 	public void simulate(){
 		Logger.printCall(this);
 		
-		
-		Logger.printCallEnd();	
+	
+		Logger.printCallEnd();
 	}
 	
 	/**
@@ -115,13 +93,6 @@ public class Jatek {
 	 * 
 	 */	
 	public void commitPontok(){
-		Logger.printCall(this);
-		
-        for (Jatekos jatekos : jatekosok) 
-           jatekos.commitPont(ranglista);
-        
-		
-		Logger.printCallEnd();	
 	}
 	
 }

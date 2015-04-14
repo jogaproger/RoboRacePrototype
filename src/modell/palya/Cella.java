@@ -3,7 +3,7 @@ package modell.palya;
 import java.util.ArrayList;
 import modell.jatekobj.JatekObj;
 import modell.jatekobj.Robot;
-import skeleton.Logger;
+import main.Logger;
 
 public class Cella {
 
@@ -64,4 +64,10 @@ public class Cella {
         }
         Logger.printCallEnd();
     }
+	@Override
+	public String toString() {
+		return "c[" + x + "," + y + "]" ;
+	}
+    
+    
 }

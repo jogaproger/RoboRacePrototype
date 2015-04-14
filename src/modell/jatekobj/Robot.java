@@ -1,6 +1,6 @@
 package modell.jatekobj;
 
-import skeleton.Logger;
+import main.Logger;
 import modell.Jatek;
 import modell.palya.Cella;
 import modell.palya.Irany;
@@ -10,7 +10,7 @@ import modell.palya.Sebesseg;
  * Robot osztaly
  *
  */
-public class Robot extends JatekObj{
+public class Robot extends AbstractRobot{
 	/**
 	 * Robot allapotat leiro belso enumeracio
 	 */
