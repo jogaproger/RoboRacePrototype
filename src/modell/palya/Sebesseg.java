@@ -11,7 +11,7 @@ public class Sebesseg {
      * @return 
      */
     public int getNagysag() {
-        return 0;
+        return 0; 
     }
         
     /**
