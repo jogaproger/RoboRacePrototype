@@ -6,21 +6,25 @@ import modell.jatekobj.Folt;
 
 public class Utkereso implements JOVisitor {
 
+	/** Az utkereses szempontjabol relevans adatok */
+	boolean folt=false, blokkol=false;
+	
 	@Override
 	public void visitAbstractRobot(AbstractRobot r) {
-		// TODO Auto-generated method stub
-
+		// Mas robotokat igyekszik elkerulni a kisrobot
+		blokkol = false;
 	}
 
 	@Override
 	public void visitFolt(Folt f) {
-		// TODO Auto-generated method stub
-
+		// A foltok lesznek a celok
+		folt = true;
 	}
 
 	@Override
 	public void visitBlokk(Blokk b) {
-		// TODO Auto-generated method stub
+		// A blokkokat is elkeruli a kisrobot
+		blokkol = true;
 
 	}
 

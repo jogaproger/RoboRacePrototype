@@ -11,42 +11,27 @@ import modell.palya.Sebesseg;
  *
  */
 public class Robot extends AbstractRobot{
-	/**
-	 * Robot allapotat leiro belso enumeracio
-	 */
-	private enum RobotAllapot{
-		HALOTT, ALLO, UGRO		
-	};
-	/** Robot allapota */
-	RobotAllapot allapot;
+
 	
 	/** Robot sebessege */
 	private Sebesseg seb;
-	/** Ugras eseten ahonnan elugrunk */
-	private Cella forras;
-	/** Ugras eseten ahova erkezni fogunk */
-	private Cella cel;
-	/** Erre szeretne modositani a felhasznalo az ugrast kovetkezo leerkezeskor */
-	private Irany irany;
 	/** Ragacskeszlet */
 	private int ragacsnum;
 	/** Olajkeszlet */
 	private int olajnum;
 	/** IRanyithatatlan-e a robot */
 	private boolean csusztatott;
-	/** mennyi ideje van a robot a levegoben */
-	private int ugrasido;
+
 	
 	/**
 	 * Default konstruktor
 	 */
-	public Robot() {
+	public Robot( ) {
+		super();
 		Logger.printCall(this);
 		
 		ragacsnum = olajnum = 3;
-		cel = forras = cella = null;
 		csusztatott = false;
-		irany = Irany.Marad;
 		seb = new Sebesseg();
 		
 		Logger.printCallEnd();
@@ -75,23 +60,8 @@ public class Robot extends AbstractRobot{
                 this.allapot=RobotAllapot.HALOTT;
 		Logger.printCallEnd();
 	}
-	/**
-	 * Robot lassitasa, azaz sebessegenek megfelezese
-	 */
-	public void lassit() {
-		Logger.printCall(this);
-		seb.felez();
-		Logger.printCallEnd();
-	}
-	/**
-	 * Megcsusztatja a robotot, tehat az nem tudja majd megvaltoztatni
-	 * a sebesseget a kovetkezo lehetosegnel
-	 */
-	public void csusztat() {
-		Logger.printCall(this);
-		
-		Logger.printCallEnd();
-	}
+	
+	
 	/**
 	 * Megadja, merre modosul majd a robot sebessege a kovetkezo
 	 * leerkezeskor
@@ -143,4 +113,34 @@ public class Robot extends AbstractRobot{
 		Logger.printCallEnd();
 	}
 	
+	
+	@Override
+	protected void onErkezes( Cella c ){
+		c.ralep( this );		
+	}
+
+	/**
+	 * Megcsusztatja a robotot, tehat az nem tudja majd megvaltoztatni
+	 * a sebesseget a kovetkezo lehetosegnel
+	 */
+	public void csusztat() {
+		Logger.printCall(this);
+		
+		Logger.printCallEnd();
+	}
+
+	/**
+	 * Robot lassitasa, azaz sebessegenek megfelezese
+	 */
+	public void lassit() {
+		Logger.printCall(this);
+		seb.felez();
+		Logger.printCallEnd();
+	}
+	
+	public void info(){
+		Logger.printCall(this);
+		
+		Logger.printCallEnd();
+	}
 }

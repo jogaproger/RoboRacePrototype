@@ -8,20 +8,15 @@ public class TakaritoVisitor implements JOVisitor {
 
 	@Override
 	public void visitAbstractRobot(AbstractRobot r) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void visitFolt(Folt f) {
-		// TODO Auto-generated method stub
-
+	//	f.takarit();
 	}
 
 	@Override
 	public void visitBlokk(Blokk b) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

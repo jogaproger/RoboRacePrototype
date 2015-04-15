@@ -2,6 +2,7 @@ package modell.jatekobj;
 
 import main.Logger;
 import modell.palya.Cella;
+import modell.visitors.JOVisitor;
 /**
  * Absztrakt jatekobjektum 
  */
@@ -11,20 +12,14 @@ public abstract class JatekObj {
 	/**
 	 * Pillanatnyi muveletek vegrehajtasa
 	 */
-	public void simulate(){
-		Logger.printCall(this);
-		
-		Logger.printCallEnd();
-	}
+	public abstract void simulate();
+	
 	/**
 	 * Megadja mit csinal, ha robot lep az objektumra
 	 * @param r A robot, amely ralep
 	 */
-	public void ralep(Robot r) {
-		Logger.printCall(this, r);
-		
-		Logger.printCallEnd();
-	}
+	public abstract void ralep(Robot r);
+	
 	/**
 	 * Hozzaadjuk egy cellahoz
 	 */
@@ -34,6 +29,10 @@ public abstract class JatekObj {
 		c.add(this);
 		Logger.printCallEnd();
 	}
+	
+	public abstract void accept(JOVisitor visitor);
+	
+	public abstract void info();
 	
 	
 
