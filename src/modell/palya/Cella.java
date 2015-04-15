@@ -12,7 +12,7 @@ public class Cella {
     private ArrayList<JatekObj> o;
     private Palya palya;
     
-   public Cella(Palya p,int x, int y) {
+   Cella(Palya p,int x, int y) {
         Logger.printCall(this);
         
         this.x=x;

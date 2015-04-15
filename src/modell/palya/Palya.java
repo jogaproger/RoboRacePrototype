@@ -5,7 +5,7 @@ import modell.jatekobj.Ragacs;
 import main.Logger;
 
 /**
- *	Pálya osztály
+ *	Palya osztaly
  */
 public class Palya {
 	
@@ -19,8 +19,8 @@ public class Palya {
 	private Jatek jatek;
 	
 	/**
-	 * Pálya létrehozása
-	 * @param j A játék, amelyhez a pálya tartozik
+	 * Palya letrehozasa
+	 * @param j A jatek, amelyhez a palya tartozik
 	 * 
 	 */
 	public Palya(Jatek j){
