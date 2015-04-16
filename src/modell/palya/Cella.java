@@ -29,7 +29,7 @@ public class Cella {
      */
     public Cella getKov(Sebesseg s) {
         Logger.printCall(this, s);
-        Cella c = palya.cellaxy(x, y);
+        Cella c = palya.cellaxy(x+s.jobbra, y+s.fel);
         Logger.printCallEnd();
         return c;
     }
