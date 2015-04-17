@@ -153,4 +153,12 @@ public class Palya {
             return cellak[x][y];
         }
     }
+    
+    /**
+     * Palyaszerkesztes vegrehajtasa
+     *
+     */
+    public void szerkeszt() {
+    
+    }
 }

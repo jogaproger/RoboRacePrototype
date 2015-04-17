@@ -41,6 +41,7 @@ public class Jatek {
 		
 		palya = new Palya(this);
 		if( palyafajl == null || !palya.betolt(palyafajl));
+			palya.szerkeszt();
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
 			jatekosok[i] = new Jatekos("Nev"+i, this);
