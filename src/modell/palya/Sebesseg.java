@@ -4,14 +4,26 @@ public class Sebesseg {
 
     int fel;
     int jobbra;
+    
+    private Sebesseg(int f, int j){
+    	fel = f;
+    	jobbra = j;
+    }
+    
+    public Sebesseg(){
+    	fel = jobbra = 0;    	
+    }
+    
+    public static Sebesseg Sum( Sebesseg a, Sebesseg b ){
+		return new Sebesseg( a.fel+b.fel, a.jobbra+b.jobbra );}
 
      /**
      *  Sebesseg nagysaganak lekerdezese
      * 
      * @return 
      */
-    public int getNagysag() {
-        return 0; 
+    public double getNagysag() {
+        return Math.sqrt(fel*fel+jobbra*jobbra); 
     }
         
     /**

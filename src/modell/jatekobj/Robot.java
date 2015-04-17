@@ -2,6 +2,7 @@ package modell.jatekobj;
 
 import main.Logger;
 import modell.Jatek;
+import modell.Jatekos;
 import modell.palya.Cella;
 import modell.palya.Irany;
 import modell.palya.Sebesseg;
@@ -21,18 +22,21 @@ public class Robot extends AbstractRobot{
 	private int olajnum;
 	/** IRanyithatatlan-e a robot */
 	private boolean csusztatott;
-
+	
+	/**  */
+	private Jatekos jatekos;
 	
 	/**
 	 * Default konstruktor
 	 */
-	public Robot( ) {
+	public Robot( Jatekos jatekos ) {
 		super();
 		Logger.printCall(this);
 		
 		ragacsnum = olajnum = 3;
 		csusztatott = false;
 		seb = new Sebesseg();
+		this.jatekos = jatekos;
 		
 		Logger.printCallEnd();
 	}

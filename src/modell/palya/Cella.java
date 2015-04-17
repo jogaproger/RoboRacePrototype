@@ -74,6 +74,10 @@ public class Cella {
 		return "c[" + x + "," + y + "]" ;
 	}
 	
+	public Cella keresFolt(){
+		return palya.keresFolt(x, y);
+	}
+	
 	public void accept(JOVisitor visitor) {
         for (JatekObj obj : o) {
             obj.accept(visitor);

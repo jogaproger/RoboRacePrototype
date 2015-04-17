@@ -31,11 +31,6 @@ public class Olaj extends Folt{
 		Logger.printCallEnd();
 	}
 
-	@Override
-	public void takarit() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void info() {
