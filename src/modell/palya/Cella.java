@@ -1,8 +1,11 @@
 package modell.palya;
 
 import java.util.ArrayList;
+
 import modell.jatekobj.JatekObj;
 import modell.jatekobj.Robot;
+import modell.visitors.JOVisitor;
+import modell.visitors.TakaritoVisitor;
 import main.Logger;
 
 public class Cella {
@@ -64,9 +67,17 @@ public class Cella {
         }
         Logger.printCallEnd();
     }
+    
+    
 	@Override
 	public String toString() {
 		return "c[" + x + "," + y + "]" ;
+	}
+	
+	public void accept(JOVisitor visitor) {
+        for (JatekObj obj : o) {
+            obj.accept(visitor);
+        }	
 	}
     
     

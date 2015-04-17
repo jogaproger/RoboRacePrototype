@@ -40,7 +40,8 @@ public class Jatek {
 		robotszam = 0;
 		
 		palya = new Palya(this);
-		palya.betolt(palyafajl);
+		if( palyafajl == null || !palya.betolt(palyafajl));
+			palya.szerkeszt();
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
 			jatekosok[i] = new Jatekos("Nev"+i, this);
@@ -61,10 +62,8 @@ public class Jatek {
 	 * a kovetkezo kezdocellara
 	 */	
 	public void addRobot(Robot r){
-		
 		r.addToCella(palya.getStartCell(robotszam));
-		robotszam++;
-		
+		robotszam++;		
 		addJatekObj(r);		
 	}
 	
@@ -81,8 +80,9 @@ public class Jatek {
 	 * Jatek lejatszasa
 	 * 
 	 */	
-	public void simulate(){
+	public void futtat(){
 		Logger.printCall(this);
+		
 		
 	
 		Logger.printCallEnd();

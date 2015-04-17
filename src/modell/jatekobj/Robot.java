@@ -50,17 +50,11 @@ public class Robot extends AbstractRobot{
 	public void ralep(Robot r) {
 		Logger.printCall(this, r);
 		
+		// TODO magic
+		
 		Logger.printCallEnd();
 	}
-	/**
-	 * Robot megolese, allapotanak halottra valtoztatasa
-	 */
-	public void kill() {
-		Logger.printCall(this);
-                this.allapot=RobotAllapot.HALOTT;
-		Logger.printCallEnd();
-	}
-	
+
 	
 	/**
 	 * Megadja, merre modosul majd a robot sebessege a kovetkezo
@@ -70,25 +64,12 @@ public class Robot extends AbstractRobot{
 	public void iranyit(Irany i) {
 		Logger.printCall(this, i.toString());
 		
-		Logger.printMessage("irany = "+i.toString());
-		irany = i;
+		if( allapot == RobotAllapot.ALLO )
+			seb.modosit(i);
 		
 		Logger.printCallEnd();
 	}
-	/**
-	 * @param seb Sebesseg, amellyel meglokjuk a robotot
-	 */
-	public void lok(Sebesseg seb) {
-		Logger.printCall(this, seb);
-		
-		this.seb = seb;
-		this.allapot = RobotAllapot.UGRO;
-		forras = cella;
-		cel = cella.getKov(seb);
-		cella = null;
-		
-		Logger.printCallEnd();
-	}
+
 	/**
 	 * Ragacs lerakasa
 	 */
