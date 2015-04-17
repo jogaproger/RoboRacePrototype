@@ -159,6 +159,16 @@ public class Palya {
      *
      */
     public void szerkeszt() {
-    
+    	// TODO palyaszerkeszto mod megcsinalasa
     }
+
+	public Cella keresFolt(int x, int y) {
+		// TODO Utkereso algoritmus megvalositas
+		return null;
+	}
+	
+	public void info(){
+		// TODO palya kirajzolasa, mint az elozo dokumentaciobal
+		
+	}
 }

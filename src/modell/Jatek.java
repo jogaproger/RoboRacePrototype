@@ -26,11 +26,8 @@ public class Jatek {
 	/** robotok szama a palyan */
 	private int robotszam;
 	
-	/**
-	 * barmely jatekpeldany letrehozasakor valtozik az instance
-	 */	
-	public Jatek(){		
-		ranglista = new Ranglista();
+	public Jatek( String palyafajl, int jatekosnum ){
+		ujJatek(palyafajl, jatekosnum);
 	}
 	
 	public void ujJatek( String palyafajl, int jatekosnum ){

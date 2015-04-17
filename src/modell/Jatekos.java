@@ -24,7 +24,7 @@ public class Jatekos {
 		
 		// Nev beallitasa
 		this.nev = nev;
-		robot = new Robot();
+		robot = new Robot(this);
 		pontszam = 0;
 		
 		// A jateknak is tudnia kell a robotunkrol
@@ -34,7 +34,7 @@ public class Jatekos {
 	}
 	
 	public void addPont( int p ){
-		Logger.printCall(this,  ""+p);
+		Logger.printCall(this,  new Integer(p));
 		
 		Logger.printCallEnd();
 	}

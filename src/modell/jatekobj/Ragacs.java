@@ -19,12 +19,7 @@ public class Ragacs extends Folt{
 	 */
 	public void ralep(Robot r) {
 		r.lassit();		
-	}
-
-	@Override
-	public void takarit() {
-		// TODO Auto-generated method stub
-		
+		elet -= 25.1;	// 4 ugras utan igy elpusztul a ragacs
 	}
 
 	@Override

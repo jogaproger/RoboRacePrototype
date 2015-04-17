@@ -24,6 +24,13 @@ public abstract class AbstractRobot extends JatekObj{
 	/** mennyi ideje van a robot a levegoben */
 	private int ugrasido;
 	
+	/** Robot sebessege */
+	Sebesseg seb;
+	
+	public AbstractRobot(){
+		seb = new Sebesseg();		
+	}
+	
 	/**
 	 * Robot elpusztitasa
 	 */
@@ -47,17 +54,6 @@ public abstract class AbstractRobot extends JatekObj{
 	 * @param c Celcella
 	 */
 	protected abstract void onErkezes( Cella c );
-	
-	/**
-	 * Akkor hivodik meg, amikor az abstract robot leer a cellara
-	 * @param sebesseg Ugrasi sebesseg( hany cellaval odebb megy )
-	 * @param ido Hany tick-ig ugrik
-	 */
-	protected void startUgras( Sebesseg sebesseg, int ido ){
-		Logger.printCall(this, sebesseg, new Integer(ido));
-		
-		Logger.printCallEnd();
-	}
 	
 	public void accept(JOVisitor visitor){
 		visitor.visitAbstractRobot( this );
