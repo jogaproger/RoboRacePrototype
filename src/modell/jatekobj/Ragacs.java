@@ -20,6 +20,18 @@ public class Ragacs extends Folt{
 	public void ralep(Robot r) {
 		r.lassit();		
 	}
+
+	@Override
+	public void takarit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void info() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

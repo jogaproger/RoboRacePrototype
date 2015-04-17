@@ -1,6 +1,7 @@
 package modell.jatekobj;
 
 import main.Logger;
+import modell.visitors.JOVisitor;
 
 public class Blokk extends JatekObj {
 	
@@ -9,7 +10,6 @@ public class Blokk extends JatekObj {
 	 */
 	public Blokk(){
 		Logger.printCall(this);
-		
 		Logger.printCallEnd();
 	}
 	
@@ -18,7 +18,6 @@ public class Blokk extends JatekObj {
 	 */
 	public void simulate() {
 		Logger.printCall(this);
-		
 		Logger.printCallEnd();
 	}
 	/**
@@ -28,6 +27,18 @@ public class Blokk extends JatekObj {
 		Logger.printCall(this, r);
 		r.kill();
 		Logger.printCallEnd();
+	}
+
+	@Override
+	public void accept(JOVisitor visitor) {
+		visitor.visitBlokk(this);
+		
+	}
+
+	@Override
+	public void info() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

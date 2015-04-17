@@ -62,50 +62,52 @@ public class Palya {
      * Palya betoltese fajlbol
      *
      * @param fajl Fajl neve
+     * @return Sikeres volt-e a beolvasas
      */
-    public void betolt(String fajl) {
+    public boolean betolt(String fajl) {
         Logger.printCall(this, fajl);
         File file = new File(System.getProperty("user.dir") + "/palyak/" + fajl + ".txt");
         Scanner scanner;
-        String[] palyameret = new String[2];
         try {
             scanner = new Scanner(file);
             scanner.useDelimiter(System.getProperty("line.separator"));
             if (scanner.hasNext()) {
-                palyameret = scanner.next().split(" ");
+            	String[] palyameret = scanner.next().split(" ");
                 this.szelesseg = Integer.parseInt(palyameret[0]);
                 this.magassag = Integer.parseInt(palyameret[1]);
                 cellak = new Cella[this.szelesseg][this.magassag];
+                for( int y = 0 ; y < magassag ; y++ )
+                	for( int x = 0 ; x < szelesseg ; x++ )
+                		cellak[x][y] = new Cella( this, x, y );
+                        
                 System.out.println("Palya: " + this.szelesseg + this.magassag);
             }
-            int y = 0;
-            while (scanner.hasNext()) {
+
+            for (int y = 0; y < magassag && scanner.hasNext() ; y++) {
                 String palyasor = scanner.next();
-                for (int x = 0; x < palyasor.length(); x++) {
+                for (int x = 0; x < palyasor.length() && x < szelesseg; x++) {
                     char palyaelem = palyasor.charAt(x);
                     switch (palyaelem) {
                         case 'R':
-                            this.cellak[x][y] = new Cella(this, x, y);
-                            this.cellak[x][y].add(new Ragacs());
+                            cellak[x][y].add(new Ragacs());
                             break;
                         case 'X':
-                            this.cellak[x][y] = new Cella(this, x, y);
-                            this.cellak[x][y].add(new Blokk());
+                            cellak[x][y].add(new Blokk());
                             break;
                         case 'O':
-                            this.cellak[x][y] = new Cella(this, x, y);
-                            this.cellak[x][y].add(new Olaj());
+                            cellak[x][y].add(new Olaj());
 
                             break;
                         case '-':
                             break;
                         default:
-                            int robotnum = Integer.parseInt(Character.toString(palyaelem));
-                            //TODO:handle exception if robotnumber out of range
-                            this.robotkezdo[robotnum] = new Cella(this, x, y);
-                            this.cellak[x][y] = new Cella(this, x, y);
-                            Robot r = new Robot();
-                            this.cellak[x][y].add(r);
+                        	try{
+	                            int robotnum = Integer.parseInt(Character.toString(palyaelem));
+	                            this.robotkezdo[robotnum] = cellak[x][y];
+                        	}
+                        	catch( Exception ex ){
+                        		Logger.printMessage(ex.getMessage());                        		
+                        	}
                             break;
                     }
                 }
@@ -113,9 +115,11 @@ public class Palya {
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("Nem letezik ilyen palyafajl");//TODO palyakeszito mod?
+        	Logger.printCallEnd();
+            return false;
         }
         Logger.printCallEnd();
+        return true;
     }
 
     /**
@@ -135,14 +139,16 @@ public class Palya {
      *
      * @param x X koordinata
      * @param y Y koordinata
-     * @return az adott cella, null ha nincs a palyan
+     * @return az adott cella, Blokkot tartalmazo cella ha nincs a palyan
      */
     Cella cellaxy(int x, int y) {
         Logger.printCall(this, "" + x, "" + y);
         Logger.printCallEnd();
         // Ha palyan kivul esunk
         if (x < 0 || y < 0 || x >= szelesseg || y >= magassag) {
-            return null;
+            Cella ret = new Cella( this, x, y );
+            ret.add( new Blokk() );	// Ez pusztitja el a kieso robotot
+            return ret;
         } else {
             return cellak[x][y];
         }

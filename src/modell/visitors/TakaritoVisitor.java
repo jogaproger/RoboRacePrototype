@@ -12,7 +12,7 @@ public class TakaritoVisitor implements JOVisitor {
 
 	@Override
 	public void visitFolt(Folt f) {
-	//	f.takarit();
+		f.takarit();
 	}
 
 	@Override
