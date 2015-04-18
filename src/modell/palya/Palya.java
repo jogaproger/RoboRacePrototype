@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Level;
 import modell.Jatek;
@@ -15,7 +12,6 @@ import modell.jatekobj.Ragacs;
 import main.Logger;
 import modell.jatekobj.Blokk;
 import modell.jatekobj.Olaj;
-import modell.jatekobj.Robot;
 
 /**
  * Palya osztaly
@@ -56,6 +52,10 @@ public class Palya {
         szelesseg = magassag = meret;
         cellak = new Cella[szelesseg][magassag];
         robotkezdo = new Cella[4];
+        robotkezdo[0] = new Cella(this, 0, 0);
+        robotkezdo[1] = new Cella(this, 0, magassag);
+        robotkezdo[2] = new Cella(this, szelesseg, 0);
+        robotkezdo[3] = new Cella(this, szelesseg, magassag);
 
         Logger.printCallEnd();
     }
@@ -105,11 +105,11 @@ public class Palya {
                                 this.robotkezdo[robotnum] = cellak[x][y];
                             } catch (Exception ex) {
                                 Logger.printMessage(ex.getMessage());
+                                System.out.println("Maximum 4 jatekos lehet!");
                             }
                             break;
                     }
                 }
-                y++;
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
@@ -164,7 +164,7 @@ public class Palya {
         int y;
         // TODO teszteles
         while (!"kesz".equals(command)) {
-            System.out.println("Kerem a parancsot!");
+            System.out.print("palyaszerkeszto>:");
             try {
                 command = in.readLine();
                 String[] args = command.split(" ");
@@ -178,7 +178,17 @@ public class Palya {
                         int robotszam = Integer.parseInt(args[1]);
                         x = Integer.parseInt(args[2]);
                         y = Integer.parseInt(args[3]);
-                        this.robotkezdo[robotszam - 1] = this.cellaxy(x, y);
+                        if (x < szelesseg || y < magassag) {
+                            try {
+                                this.robotkezdo[robotszam - 1] = this.cellaxy(x, y);
+                            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+                                System.out.println("Maximum 4 jatekos megengedett!");
+                            }
+                        }
+                        else{
+                            System.out.println("Nincsen ilyen indexu cella!");
+                        }
+
                         break;
                     case "ragacs":
                         x = Integer.parseInt(args[1]);
@@ -222,6 +232,7 @@ public class Palya {
     }
 
     public void info() {
+        System.out.println("Palya:");
         String elvalaszto = "";
         for (int num = 0; num < (this.szelesseg * 3) + 1; num++) {
             elvalaszto += "-";
