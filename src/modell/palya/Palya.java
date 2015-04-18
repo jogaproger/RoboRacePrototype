@@ -168,7 +168,7 @@ public class Palya {
 	}
 	
 	public void info(){
-		// TODO palya kirajzolasa, mint az elozo dokumentaciobal
+		// TODO palya kirajzolasa, mint az elozo dokumentacioban
 		
 	}
 }

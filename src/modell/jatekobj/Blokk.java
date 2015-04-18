@@ -41,4 +41,9 @@ public class Blokk extends JatekObj {
 		
 	}
 
+	@Override
+	public String getAzon() {
+		return "X ";
+	}
+
 }

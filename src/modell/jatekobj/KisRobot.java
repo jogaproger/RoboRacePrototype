@@ -27,4 +27,9 @@ public class KisRobot extends AbstractRobot {
 				
 	}
 
+	@Override
+	public String getAzon() {
+		return "KR";
+	}
+
 }

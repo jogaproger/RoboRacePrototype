@@ -41,7 +41,7 @@ public class Jatek {
 			palya.szerkeszt();
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
-			jatekosok[i] = new Jatekos("Nev"+i, this);
+			jatekosok[i] = new Jatekos("Nev"+(1+i), this, 1+i);
 	}
 	
 	/**

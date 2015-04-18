@@ -73,6 +73,13 @@ public class Sebesseg {
     */
     public void setNulla() {
     	jobbra = fel = 0;
-    }    
+    }
+
+	@Override
+	public String toString() {
+		return "[" + fel + "," + jobbra + "]";
+	}    
+    
+    
 
 }

@@ -22,7 +22,7 @@ public abstract class AbstractRobot extends JatekObj{
 	/** Ugras eseten ahova erkezni fogunk */
 	private Cella cel;
 	/** mennyi ideje van a robot a levegoben */
-	private int ugrasido;
+	protected int ugrasido;
 	
 	/** Robot sebessege */
 	Sebesseg seb;
