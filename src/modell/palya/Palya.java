@@ -1,8 +1,11 @@
 package modell.palya;
 
+import com.sun.xml.internal.ws.util.StringUtils;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,18 +75,15 @@ public class Palya {
             scanner = new Scanner(file);
             scanner.useDelimiter(System.getProperty("line.separator"));
             if (scanner.hasNext()) {
-            	String[] palyameret = scanner.next().split(" ");
+                String[] palyameret = scanner.next().split(" ");
                 this.szelesseg = Integer.parseInt(palyameret[0]);
                 this.magassag = Integer.parseInt(palyameret[1]);
-                cellak = new Cella[this.szelesseg][this.magassag];
-                for( int y = 0 ; y < magassag ; y++ )
-                	for( int x = 0 ; x < szelesseg ; x++ )
-                		cellak[x][y] = new Cella( this, x, y );
-                        
+                cellak = generalCella(this.szelesseg, this.magassag);
+
                 System.out.println("Palya: " + this.szelesseg + this.magassag);
             }
 
-            for (int y = 0; y < magassag && scanner.hasNext() ; y++) {
+            for (int y = 0; y < magassag && scanner.hasNext(); y++) {
                 String palyasor = scanner.next();
                 for (int x = 0; x < palyasor.length() && x < szelesseg; x++) {
                     char palyaelem = palyasor.charAt(x);
@@ -101,13 +101,12 @@ public class Palya {
                         case '-':
                             break;
                         default:
-                        	try{
-	                            int robotnum = Integer.parseInt(Character.toString(palyaelem));
-	                            this.robotkezdo[robotnum] = cellak[x][y];
-                        	}
-                        	catch( Exception ex ){
-                        		Logger.printMessage(ex.getMessage());                        		
-                        	}
+                            try {
+                                int robotnum = Integer.parseInt(Character.toString(palyaelem));
+                                this.robotkezdo[robotnum] = cellak[x][y];
+                            } catch (Exception ex) {
+                                Logger.printMessage(ex.getMessage());
+                            }
                             break;
                     }
                 }
@@ -115,7 +114,7 @@ public class Palya {
             }
             scanner.close();
         } catch (FileNotFoundException ex) {
-        	Logger.printCallEnd();
+            Logger.printCallEnd();
             return false;
         }
         Logger.printCallEnd();
@@ -146,29 +145,110 @@ public class Palya {
         Logger.printCallEnd();
         // Ha palyan kivul esunk
         if (x < 0 || y < 0 || x >= szelesseg || y >= magassag) {
-            Cella ret = new Cella( this, x, y );
-            ret.add( new Blokk() );	// Ez pusztitja el a kieso robotot
+            Cella ret = new Cella(this, x, y);
+            ret.add(new Blokk());	// Ez pusztitja el a kieso robotot
             return ret;
         } else {
             return cellak[x][y];
         }
     }
-    
+
     /**
      * Palyaszerkesztes vegrehajtasa
      *
      */
     public void szerkeszt() {
-    	// TODO palyaszerkeszto mod megcsinalasa
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String command = "";
+
+        int x;
+        int y;
+        // TODO teszteles
+        while (!"kesz".equals(command)) {
+            System.out.println("Kerem a parancsot!");
+            try {
+                command = in.readLine();
+                String[] args = command.split(" ");
+                switch (args[0]) {
+                    case "palya":
+                        this.szelesseg = Integer.parseInt(args[1]);
+                        this.magassag = Integer.parseInt(args[2]);
+                        cellak = generalCella(this.szelesseg, this.magassag);
+                        break;
+                    case "kezd":
+                        int robotszam = Integer.parseInt(args[1]);
+                        x = Integer.parseInt(args[2]);
+                        y = Integer.parseInt(args[3]);
+                        this.robotkezdo[robotszam - 1] = this.cellaxy(x, y);
+                        break;
+                    case "ragacs":
+                        x = Integer.parseInt(args[1]);
+                        y = Integer.parseInt(args[2]);
+                        this.cellaxy(x, y).add(new Ragacs());
+                        break;
+                    case "olaj":
+                        x = Integer.parseInt(args[1]);
+                        y = Integer.parseInt(args[2]);
+                        this.cellaxy(x, y).add(new Olaj());
+                        break;
+                    case "block":
+                    case "blokk":
+                        x = Integer.parseInt(args[1]);
+                        y = Integer.parseInt(args[2]);
+                        this.cellaxy(x, y).add(new Blokk());
+                        break;
+                    case "info":
+                        info();
+                        break;
+                }
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(Palya.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Tul keves parameter!");
+            } catch (java.lang.NumberFormatException ex) {
+                System.out.println("Nem szamot kaptam!");
+            }
+
+        }
+
     }
 
-	public Cella keresFolt(int x, int y) {
-		// TODO Utkereso algoritmus megvalositas
-		return null;
-	}
-	
-	public void info(){
-		// TODO palya kirajzolasa, mint az elozo dokumentaciobal
-		
-	}
+    Cella getkov(Cella c, Sebesseg s) {
+        return c.getKov(s);
+    }
+
+    public Cella keresFolt(int x, int y) {
+        // TODO Utkereso algoritmus megvalositas
+        return null;
+    }
+
+    public void info() {
+        String elvalaszto = "";
+        for (int num = 0; num < (this.szelesseg * 3) + 1; num++) {
+            elvalaszto += "-";
+        }
+
+        // TODO tesztelni
+        for (int y = 0; y < this.magassag; y++) {
+            System.out.println(elvalaszto);
+            String line = "|";
+            for (int x = 0; x < this.szelesseg; x++) {
+                line += this.cellak[x][y].getAzon() + "|";
+            }
+
+            System.out.println(line);
+        }
+        System.out.println(elvalaszto);
+
+    }
+
+    private Cella[][] generalCella(int sz, int m) {
+        Cella[][] returnCella = new Cella[sz][m];
+        for (int y = 0; y < m; y++) {
+            for (int x = 0; x < sz; x++) {
+                returnCella[x][y] = new Cella(this, x, y);
+            }
+        }
+        return returnCella;
+    }
 }
