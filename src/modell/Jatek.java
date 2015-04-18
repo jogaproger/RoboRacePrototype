@@ -24,7 +24,7 @@ public class Jatek {
 	/** Jatek kezdete ota eltelt ido */
 	private int ido;
 	/** robotok szama a palyan */
-	private int robotszam;
+	private int kezdoIndex;
 	
 	public Jatek( String palyafajl, int jatekosnum ){
 		ujJatek(palyafajl, jatekosnum);
@@ -34,7 +34,7 @@ public class Jatek {
 		
 		jatekosok = new Jatekos[jatekosnum];
 		objects = new ArrayList<JatekObj>();
-		robotszam = 0;
+		kezdoIndex = 0;
 		
 		palya = new Palya(this);
 		if( palyafajl == null || !palya.betolt(palyafajl));
@@ -42,6 +42,10 @@ public class Jatek {
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
 			jatekosok[i] = new Jatekos("Nev"+(1+i), this, 1+i);
+	}
+	
+	public int getJatekosNum(){
+		return jatekosok.length;		
 	}
 	
 	/**
@@ -59,8 +63,8 @@ public class Jatek {
 	 * a kovetkezo kezdocellara
 	 */	
 	public void addRobot(Robot r){
-		r.addToCella(palya.getStartCell(robotszam));
-		robotszam++;		
+		r.addToCella(palya.getStartCell(kezdoIndex));
+		kezdoIndex++;		
 		addJatekObj(r);		
 	}
 	
