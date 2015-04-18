@@ -32,6 +32,8 @@ public abstract class JatekObj {
 	
 	public abstract void accept(JOVisitor visitor);
 	
+	public abstract String getAzon();
+	
 	public abstract void info();
 	
 	

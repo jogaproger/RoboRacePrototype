@@ -13,7 +13,6 @@ import modell.palya.Sebesseg;
  */
 public class Robot extends AbstractRobot{
 
-	
 	/** Robot sebessege */
 	private Sebesseg seb;
 	/** Ragacskeszlet */
@@ -127,5 +126,9 @@ public class Robot extends AbstractRobot{
 		Logger.printCall(this);
 		
 		Logger.printCallEnd();
+	}
+	@Override
+	public String getAzon() {
+		return "J"+jatekos.getSorszam();
 	}
 }

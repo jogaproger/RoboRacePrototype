@@ -37,6 +37,11 @@ public class Olaj extends Folt{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getAzon() {
+		return "O ";
+	}
 	
 	
 

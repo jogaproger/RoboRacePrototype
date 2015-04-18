@@ -27,6 +27,11 @@ public class Ragacs extends Folt{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getAzon() {
+		return "R ";
+	}
 	
 	
 
