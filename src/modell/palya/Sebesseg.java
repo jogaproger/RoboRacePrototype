@@ -2,20 +2,19 @@ package modell.palya;
 
 public class Sebesseg {
 
-    int fel;
-    int jobbra;
+    int x, y;
     
-    public Sebesseg(int f, int j){
-    	fel = f;
-    	jobbra = j;
+    public Sebesseg(int x, int y){
+    	this.y = y;
+    	this.x = x;
     }
     
     public Sebesseg(){
-    	fel = jobbra = 0;    	
+    	y = x = 0;    	
     }
     
     public static Sebesseg Sum( Sebesseg a, Sebesseg b ){
-		return new Sebesseg( a.fel+b.fel, a.jobbra+b.jobbra );}
+		return new Sebesseg( a.x+b.x, a.y+b.y );}
 
      /**
      *  Sebesseg nagysaganak lekerdezese
@@ -23,7 +22,7 @@ public class Sebesseg {
      * @return 
      */
     public double getNagysag() {
-        return Math.sqrt(fel*fel+jobbra*jobbra); 
+        return Math.sqrt(y*y+x*x); 
     }
         
     /**
@@ -32,21 +31,21 @@ public class Sebesseg {
     */
     public void modosit(Irany i) {
     	switch(i){
-		case Balra:jobbra--;
+		case Balra:x--;
 			break;
-		case BalraFel:jobbra--;fel++;
+		case BalraFel:x--;y--;
 			break;
-		case BalraLe:jobbra--;fel--;
+		case BalraLe:x--;y++;
 			break;
-		case Fel:fel++;
+		case Fel:y--;
 			break;
-		case Jobbra:jobbra++;
+		case Jobbra:x++;
 			break;
-		case JobbraFel:jobbra++;fel++;
+		case JobbraFel:x++;y--;
 			break;
-		case JobbraLe:jobbra++;fel--;
+		case JobbraLe:x++;y++;
 			break;
-		case Le:fel--;
+		case Le:y++;
 			break;
 		default:
 			break;
@@ -57,27 +56,27 @@ public class Sebesseg {
     * 
     */
     public Boolean isNulla() {
-        return fel == 0 && jobbra == 0;
+        return y == 0 && x == 0;
     }
     /**
     *  Sebesseg felezese
     * 
     */
     public void felez() {
-    	fel/=2;
-    	jobbra/=2;
+    	y/=2;
+    	x/=2;
     }
     /**
     *  Sebesseg nullara allitasa
     * 
     */
     public void setNulla() {
-    	jobbra = fel = 0;
+    	x = y = 0;
     }
 
 	@Override
 	public String toString() {
-		return "[" + fel + "," + jobbra + "]";
+		return "[" + x + "," + y + "]";
 	}    
     
     
