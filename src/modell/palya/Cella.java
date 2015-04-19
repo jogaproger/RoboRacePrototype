@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import modell.jatekobj.JatekObj;
 import modell.jatekobj.Robot;
 import modell.visitors.JOVisitor;
-import modell.visitors.TakaritoVisitor;
-import main.Logger;
 
 public class Cella {
 
@@ -16,14 +14,12 @@ public class Cella {
     private Palya palya;
 
     Cella(Palya p, int x, int y) {
-        Logger.printCall(this);
 
         this.x = x;
         this.y = y;
         o = new ArrayList<>();
         this.palya = p;
 
-        Logger.printCallEnd();
     }
 
     /**
@@ -33,9 +29,7 @@ public class Cella {
      * @return
      */
     public Cella getKov(Sebesseg s) {
-        Logger.printCall(this, s);
         Cella c = palya.cellaxy(x + s.x, y + s.y);
-        Logger.printCallEnd();
         return c;
     }
 
@@ -45,11 +39,9 @@ public class Cella {
      * @param j Lerakando jatekobjektum
      */
     public void add(JatekObj j) {
-        Logger.printCall(this, j);
 
         o.add(j);
 
-        Logger.printCallEnd();
     }
 
     /**
@@ -58,9 +50,7 @@ public class Cella {
      * @param j Eltavolitando jatekobjektum
      */
     public void remove(JatekObj j) {
-        Logger.printCall(this, j);
         o.remove(j);
-        Logger.printCallEnd();
     }
 
     /**
@@ -68,11 +58,9 @@ public class Cella {
      *
      */
     public void ralep(Robot r) {
-        Logger.printCall(this, r);
         for (JatekObj obj : o) {
             obj.ralep(r);
         }
-        Logger.printCallEnd();
     }
 
     @Override
@@ -91,14 +79,12 @@ public class Cella {
     }
 
     public String getAzon() {
-        if (o.size() ==0) {
+        if (o.size() == 0) {
             return "  ";
-        } else if (o.size()>1) {
+        } else if (o.size() > 1) {
             return "..";
 
-        }
-        else
-        {
+        } else {
             return o.get(0).getAzon();
         }
     }

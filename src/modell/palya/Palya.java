@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import modell.Jatek;
 import modell.jatekobj.Ragacs;
-import main.Logger;
 import modell.jatekobj.Blokk;
 import modell.jatekobj.Olaj;
 
@@ -42,12 +41,9 @@ public class Palya {
      *
      */
     public Palya(Jatek j) {
-        Logger.printCall(this, j);
 
         jatek = j;
 
-
-        Logger.printCallEnd();
     }
 
     /**
@@ -57,7 +53,6 @@ public class Palya {
      * @return Sikeres volt-e a beolvasas
      */
     public boolean betolt(String fajl) {
-        Logger.printCall(this, fajl);
         File file = new File(System.getProperty("user.dir") + "/palyak/" + fajl + ".txt");
         Scanner scanner = null;
         try {
@@ -89,28 +84,27 @@ public class Palya {
                         case '-':
                             break;
                         default:
-                        	if( palyaelem<'0' || palyaelem>'9' )
-                        		break;
+                            if (palyaelem < '0' || palyaelem > '9') {
+                                break;
+                            }
                             try {
                                 int robotnum = Integer.parseInt(Character.toString(palyaelem));
                                 this.robotkezdo[robotnum] = cellak[x][y];
                             } catch (Exception ex) {
-                                Logger.printMessage(ex.getMessage());
                                 System.out.println("Maximum 4 jatekos lehet!");
                             }
                             break;
                     }
                 }
             }
-            
+
         } catch (FileNotFoundException ex) {
-            Logger.printCallEnd();
             return false;
         } finally {
-        	if(scanner != null )
-        		scanner.close();        	
+            if (scanner != null) {
+                scanner.close();
+            }
         }
-        Logger.printCallEnd();
         return true;
     }
 
@@ -121,8 +115,6 @@ public class Palya {
      * @return Valamelyik sarokcella i-tol fuggoen
      */
     public Cella getStartCell(int i) {
-        Logger.printCall(this, new Integer(i));
-        Logger.printCallEnd();
         return this.robotkezdo[i];
     }
 
@@ -134,8 +126,6 @@ public class Palya {
      * @return az adott cella, Blokkot tartalmazo cella ha nincs a palyan
      */
     Cella cellaxy(int x, int y) {
-        Logger.printCall(this, "" + x, "" + y);
-        Logger.printCallEnd();
         // Ha palyan kivul esunk
         if (x < 0 || y < 0 || x >= szelesseg || y >= magassag) {
             Cella ret = new Cella(this, x, y);
@@ -162,14 +152,11 @@ public class Palya {
             try {
                 command = in.readLine();
                 String[] args = command.toUpperCase().split(" ");
-                if (args[0].equals("PALYA") )
-                {
-                        this.szelesseg = Integer.parseInt(args[1]);
-                        this.magassag = Integer.parseInt(args[2]);
-                        generalCella(this.szelesseg, this.magassag);
-                } 
-                else if (args[0].equals("KEZD") ) 
-                {
+                if (args[0].equals("PALYA")) {
+                    this.szelesseg = Integer.parseInt(args[1]);
+                    this.magassag = Integer.parseInt(args[2]);
+                    generalCella(this.szelesseg, this.magassag);
+                } else if (args[0].equals("KEZD")) {
                     int robotszam = Integer.parseInt(args[1]);
                     x = Integer.parseInt(args[2]);
                     y = Integer.parseInt(args[3]);
@@ -179,40 +166,27 @@ public class Palya {
                         } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
                             System.out.println("Maximum 4 jatekos megengedett!");
                         }
-                    }
-                    else{
+                    } else {
                         System.out.println("Nincsen ilyen indexu cella!");
                     }
-                } 
-                else if (args[0].equals("RAGACS") ) 
-                {
-                        x = Integer.parseInt(args[1]);
-                        y = Integer.parseInt(args[2]);
-                        this.cellaxy(x, y).add(new Ragacs());
-                } 
-                else if (args[0].equals("OLAJ") ) 
-                {
-                        x = Integer.parseInt(args[1]);
-                        y = Integer.parseInt(args[2]);
-                        this.cellaxy(x, y).add(new Olaj());
-                } 
-                else if (args[0].equals("BLOCK") || args[0].equals("BLOKK") ) 
-                {
-                        x = Integer.parseInt(args[1]);
-                        y = Integer.parseInt(args[2]);
-                        this.cellaxy(x, y).add(new Blokk());
-                } 
-                else if (args[0].equals("INFO") )
-                {
-                        info();
-                } 
-                else if (args[0].equals("KESZ") ) 
-                {
-                	break;                	
-                }
-                else 
-                {
-                	System.out.println("Ervenytelen parancs");                	
+                } else if (args[0].equals("RAGACS")) {
+                    x = Integer.parseInt(args[1]);
+                    y = Integer.parseInt(args[2]);
+                    this.cellaxy(x, y).add(new Ragacs());
+                } else if (args[0].equals("OLAJ")) {
+                    x = Integer.parseInt(args[1]);
+                    y = Integer.parseInt(args[2]);
+                    this.cellaxy(x, y).add(new Olaj());
+                } else if (args[0].equals("BLOCK") || args[0].equals("BLOKK")) {
+                    x = Integer.parseInt(args[1]);
+                    y = Integer.parseInt(args[2]);
+                    this.cellaxy(x, y).add(new Blokk());
+                } else if (args[0].equals("INFO")) {
+                    info();
+                } else if (args[0].equals("KESZ")) {
+                    break;
+                } else {
+                    System.out.println("Ervenytelen parancs");
                 }
             } catch (IOException ex) {
                 java.util.logging.Logger.getLogger(Palya.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,7 +205,7 @@ public class Palya {
     }
 
     public Cella keresFolt(int x, int y) {
-        
+
         return null;
     }
 
@@ -260,14 +234,14 @@ public class Palya {
         cellak = new Cella[sz][m];
         for (int y = 0; y < m; y++) {
             for (int x = 0; x < sz; x++) {
-            	cellak[x][y] = new Cella(this, x, y);
+                cellak[x][y] = new Cella(this, x, y);
             }
         }
         robotkezdo = new Cella[4];
         robotkezdo[0] = cellak[0][0];
-        robotkezdo[1] = cellak[sz-1][m-1];
-        robotkezdo[2] = cellak[sz-1][0];
-        robotkezdo[3] = cellak[0][m-1];
+        robotkezdo[1] = cellak[sz - 1][m - 1];
+        robotkezdo[2] = cellak[sz - 1][0];
+        robotkezdo[3] = cellak[0][m - 1];
 
     }
 }
