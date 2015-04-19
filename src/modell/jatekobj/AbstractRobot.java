@@ -1,6 +1,7 @@
 package modell.jatekobj;
 
 import main.Logger;
+import main.Main;
 import modell.palya.Cella;
 import modell.palya.Sebesseg;
 import modell.visitors.JOVisitor;
@@ -18,14 +19,17 @@ public abstract class AbstractRobot extends JatekObj{
 	protected RobotAllapot allapot;
 	
 	/** Ugras eseten ahonnan elugrunk */
-	private Cella forras;
+	protected Cella forras;
 	/** Ugras eseten ahova erkezni fogunk */
-	private Cella cel;
+	protected Cella cel;
 	/** mennyi ideje van a robot a levegoben */
-	protected int ugrasido;
+	protected int ugrasidoTick;
 	
 	/** Robot sebessege */
 	Sebesseg seb;
+	
+	/** Robot ugrási ideje */
+	double totalUgrasIdoSec = 1;
 	
 	public AbstractRobot(){
 		seb = new Sebesseg();		
@@ -49,6 +53,7 @@ public abstract class AbstractRobot extends JatekObj{
 		forras = cella;
 		cel = celcella;
 		allapot = RobotAllapot.UGRO;	
+		ugrasidoTick = 0;
 	}
 	
 	/**
@@ -64,13 +69,18 @@ public abstract class AbstractRobot extends JatekObj{
 		case HALOTT:
 			break;
 		case UGRO:
-				ugrasido++;
+				ugrasidoTick++;
+				if( ugrasidoTick > totalUgrasIdoSec * Main.getTicksPerSecond() )
+				{
+					erkezik( cel );
+					allapot = RobotAllapot.ALLO;
+				}
+				
 			break;
 		default:
 			break;		
 		
 		}
-		if( !seb.isNulla )
 		Logger.printCallEnd();
 	}
 	
@@ -78,8 +88,11 @@ public abstract class AbstractRobot extends JatekObj{
 	 * Akkor hivodik meg, amikor az abstract robot leer a cellara
 	 * @param c Celcella
 	 */
-	protected abstract void onErkezes( Cella c );
+	protected abstract void erkezik( Cella c );
 	
+	/**
+	 * Visitor fogadasa
+	 */
 	public void accept(JOVisitor visitor){
 		visitor.visitAbstractRobot( this );
 	}

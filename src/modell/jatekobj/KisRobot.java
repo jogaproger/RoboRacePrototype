@@ -6,7 +6,10 @@ import modell.visitors.TakaritoVisitor;
 public class KisRobot extends AbstractRobot {
 
 	@Override
-	protected void onErkezes(Cella c) {		
+	protected void erkezik(Cella c) {		
+		c.add(this);
+		cella = c;
+		cel = forras = null;
 	}
 
 	@Override
@@ -24,12 +27,13 @@ public class KisRobot extends AbstractRobot {
 
 	@Override
 	public void info() {
-				
+		
 	}
 
 	@Override
 	public String getAzon() {
 		return "KR";
 	}
+
 
 }
