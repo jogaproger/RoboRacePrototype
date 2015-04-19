@@ -5,7 +5,7 @@ public class Sebesseg {
     int fel;
     int jobbra;
     
-    private Sebesseg(int f, int j){
+    public Sebesseg(int f, int j){
     	fel = f;
     	jobbra = j;
     }

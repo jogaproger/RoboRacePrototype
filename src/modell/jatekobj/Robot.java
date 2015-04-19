@@ -40,20 +40,21 @@ public class Robot extends AbstractRobot{
 		Logger.printCallEnd();
 	}
 	/**
-	 * Cselekvesek vegrehajtasa
-	 */
-	public void simulate() {
-		Logger.printCall(this);
-		
-		Logger.printCallEnd();
-	}
-	/**
 	 * Megadja mi tortenik, ha robot lep rank
 	 */
 	public void ralep(Robot r) {
 		Logger.printCall(this, r);
 		
-		// TODO magic
+		if( r.seb.getNagysag() > seb.getNagysag() )
+		{
+			r.seb = Sebesseg.Sum(seb,  r.seb);
+			kill();
+		}
+		else
+		{
+			seb = Sebesseg.Sum(seb,  r.seb);
+			r.kill();
+		}
 		
 		Logger.printCallEnd();
 	}
