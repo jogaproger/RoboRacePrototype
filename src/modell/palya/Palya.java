@@ -19,10 +19,6 @@ import modell.jatekobj.Olaj;
 public class Palya {
 
     /**
-     * Palya alapertelmezett merete
-     */
-    private static final int meret = 4;
-    /**
      * Palya szelessege, magassaga
      */
     private int szelesseg, magassag;
@@ -49,13 +45,7 @@ public class Palya {
         Logger.printCall(this, j);
 
         jatek = j;
-        szelesseg = magassag = meret;
-        cellak = new Cella[szelesseg][magassag];
-        robotkezdo = new Cella[4];
-        robotkezdo[0] = new Cella(this, 0, 0);
-        robotkezdo[1] = new Cella(this, 0, magassag);
-        robotkezdo[2] = new Cella(this, szelesseg, 0);
-        robotkezdo[3] = new Cella(this, szelesseg, magassag);
+
 
         Logger.printCallEnd();
     }
@@ -77,7 +67,7 @@ public class Palya {
                 String[] palyameret = scanner.next().split(" ");
                 this.szelesseg = Integer.parseInt(palyameret[0]);
                 this.magassag = Integer.parseInt(palyameret[1]);
-                cellak = generalCella(this.szelesseg, this.magassag);
+                generalCella(this.szelesseg, this.magassag);
 
                 System.out.println("Palya: " + this.szelesseg + this.magassag);
             }
@@ -167,48 +157,58 @@ public class Palya {
             System.out.print("palyaszerkeszto>:");
             try {
                 command = in.readLine();
-                String[] args = command.split(" ");
-                switch (args[0]) {
-                    case "palya":
+                String[] args = command.toUpperCase().split(" ");
+                if (args[0].equals("PALYA") )
+                {
                         this.szelesseg = Integer.parseInt(args[1]);
                         this.magassag = Integer.parseInt(args[2]);
-                        cellak = generalCella(this.szelesseg, this.magassag);
-                        break;
-                    case "kezd":
-                        int robotszam = Integer.parseInt(args[1]);
-                        x = Integer.parseInt(args[2]);
-                        y = Integer.parseInt(args[3]);
-                        if (x < szelesseg || y < magassag) {
-                            try {
-                                this.robotkezdo[robotszam - 1] = this.cellaxy(x, y);
-                            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
-                                System.out.println("Maximum 4 jatekos megengedett!");
-                            }
+                        generalCella(this.szelesseg, this.magassag);
+                } 
+                else if (args[0].equals("KEZD") ) 
+                {
+                    int robotszam = Integer.parseInt(args[1]);
+                    x = Integer.parseInt(args[2]);
+                    y = Integer.parseInt(args[3]);
+                    if (x >= 0 && y >= 0 && x < szelesseg && y < magassag) {
+                        try {
+                            this.robotkezdo[robotszam - 1] = this.cellaxy(x, y);
+                        } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+                            System.out.println("Maximum 4 jatekos megengedett!");
                         }
-                        else{
-                            System.out.println("Nincsen ilyen indexu cella!");
-                        }
-
-                        break;
-                    case "ragacs":
+                    }
+                    else{
+                        System.out.println("Nincsen ilyen indexu cella!");
+                    }
+                } 
+                else if (args[0].equals("RAGACS") ) 
+                {
                         x = Integer.parseInt(args[1]);
                         y = Integer.parseInt(args[2]);
                         this.cellaxy(x, y).add(new Ragacs());
-                        break;
-                    case "olaj":
+                } 
+                else if (args[0].equals("OLAJ") ) 
+                {
                         x = Integer.parseInt(args[1]);
                         y = Integer.parseInt(args[2]);
                         this.cellaxy(x, y).add(new Olaj());
-                        break;
-                    case "block":
-                    case "blokk":
+                } 
+                else if (args[0].equals("BLOCK") || args[0].equals("BLOKK") ) 
+                {
                         x = Integer.parseInt(args[1]);
                         y = Integer.parseInt(args[2]);
                         this.cellaxy(x, y).add(new Blokk());
-                        break;
-                    case "info":
+                } 
+                else if (args[0].equals("INFO") )
+                {
                         info();
-                        break;
+                } 
+                else if (args[0].equals("KESZ") ) 
+                {
+                	break;                	
+                }
+                else 
+                {
+                	System.out.println("Ervenytelen parancs");                	
                 }
             } catch (IOException ex) {
                 java.util.logging.Logger.getLogger(Palya.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,7 +227,7 @@ public class Palya {
     }
 
     public Cella keresFolt(int x, int y) {
-        // TODO Utkereso algoritmus megvalositas
+        
         return null;
     }
 
@@ -252,13 +252,18 @@ public class Palya {
 
     }
 
-    private Cella[][] generalCella(int sz, int m) {
-        Cella[][] returnCella = new Cella[sz][m];
+    private void generalCella(int sz, int m) {
+        cellak = new Cella[sz][m];
         for (int y = 0; y < m; y++) {
             for (int x = 0; x < sz; x++) {
-                returnCella[x][y] = new Cella(this, x, y);
+            	cellak[x][y] = new Cella(this, x, y);
             }
         }
-        return returnCella;
+        robotkezdo = new Cella[4];
+        robotkezdo[0] = cellak[0][0];
+        robotkezdo[1] = cellak[sz-1][m-1];
+        robotkezdo[2] = cellak[sz-1][0];
+        robotkezdo[3] = cellak[0][m-1];
+
     }
 }

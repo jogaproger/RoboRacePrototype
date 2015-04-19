@@ -2,6 +2,7 @@
 package main;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,12 @@ public class Logger {
 	private static int maxDepth = 100;
 	public static int depth = 0;
 	
+	
+	public static PrintWriter output;
+	public static void init(){
+		try{output = new PrintWriter("log.txt");}
+		catch(Exception ex){ System.out.println("A Java szar"); }
+	}
 	
 	/**
 	 * Kiiras melysegenek meghatarozasa, mennyire menjunk bele also szintu
@@ -100,7 +107,7 @@ public class Logger {
 			return;
 			
 		for( int i = 0 ; i < behuzas ; i++ )	
-			System.out.print(" ");
+			output.print(" ");
 	}
 	/**
 	 * Egy tabnyi jobbra nyilat rajzol
@@ -111,8 +118,8 @@ public class Logger {
 			return;
 			
 		for( int i = 0 ; i < tab-1 ; i++ )	
-			System.out.print("-");
-		System.out.print(">");
+			output.print("-");
+		output.print(">");
 	}
 	/**
 	 * Egy tabnyi balra nyilat rajzol
@@ -122,9 +129,9 @@ public class Logger {
 		if( !enabled || maxDepth<depth )
 			return;
 			
-		System.out.print("<");
+		output.print("<");
 		for( int i = 0 ; i < tab+3 ; i++ )	
-			System.out.print("-");
+			output.print("-");
 	}
 	/**
 	 * Kiirja a szoveget, ha engedelyezett a loggolas
@@ -134,7 +141,7 @@ public class Logger {
 		if( !enabled || maxDepth<depth )
 			return;
 			
-		System.out.print(param);
+		output.print(param);
 	}
 	/**
 	 * Kiirja a szoveget sortoressel, ha engedelyezett a loggolas
@@ -144,7 +151,7 @@ public class Logger {
 		if( !enabled || maxDepth<depth )
 			return;
 			
-		System.out.println(param);
+		output.println(param);
 	}
 	/**
 	 * Kerdest tesz fel a felhasznalonak
