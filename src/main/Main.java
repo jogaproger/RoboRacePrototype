@@ -61,7 +61,8 @@ public class Main {
 			
 			Jatek jatek = new Jatek(palya, jatekosnum);
 			
-			jatek.futtat();
+			// 100 mp-ig tart egy jatek
+			jatek.futtat(100);
 			
 		}catch(Exception ex){
 			System.out.println("Ervenytelen szam( 1..4 kozotti integer legyen! )");	
@@ -74,17 +75,12 @@ public class Main {
 		
 		Logger.init();
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+		String line;
 		String cmd[] = null;
 		
-		do{
-			try{
-				cmd = br.readLine().toUpperCase().split(" ");
-			}
-			catch( Exception ex ){
-				break;
-			}
+		while( (line = Input.getLine()) != null ){
+
+			cmd = line.toUpperCase().split(" ");
 			
 			if( cmd[0].equals("JATEK") )
 				parancsJatek( cmd );
@@ -92,7 +88,10 @@ public class Main {
 			if( cmd[0].equals("TICK") )
 				parancsTick( cmd );
 			
-		}while( !cmd[0].equals("EXIT") );
+			if( cmd[0].equals("EXIT") )
+				break;
+			
+		};
 			
 		
 	}

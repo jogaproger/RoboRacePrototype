@@ -34,7 +34,7 @@ public class Cella {
      */
     public Cella getKov(Sebesseg s) {
         Logger.printCall(this, s);
-        Cella c = palya.cellaxy(x + s.jobbra, y + s.fel);
+        Cella c = palya.cellaxy(x + s.x, y + s.y);
         Logger.printCallEnd();
         return c;
     }
