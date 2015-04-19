@@ -66,6 +66,7 @@ public class Main {
 			
 		}catch(Exception ex){
 			System.out.println("Ervenytelen szam( 1..4 kozotti integer legyen! )");	
+			System.out.println(ex.getClass().getName()+ ": " + ex.getMessage());
 		}
 	}
 	

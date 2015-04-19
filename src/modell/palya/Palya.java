@@ -59,12 +59,11 @@ public class Palya {
     public boolean betolt(String fajl) {
         Logger.printCall(this, fajl);
         File file = new File(System.getProperty("user.dir") + "/palyak/" + fajl + ".txt");
-        Scanner scanner;
+        Scanner scanner = null;
         try {
             scanner = new Scanner(file);
-            scanner.useDelimiter(System.getProperty("line.separator"));
             if (scanner.hasNext()) {
-                String[] palyameret = scanner.next().split(" ");
+                String[] palyameret = scanner.nextLine().split(" ");
                 this.szelesseg = Integer.parseInt(palyameret[0]);
                 this.magassag = Integer.parseInt(palyameret[1]);
                 generalCella(this.szelesseg, this.magassag);
@@ -90,6 +89,8 @@ public class Palya {
                         case '-':
                             break;
                         default:
+                        	if( palyaelem<'0' || palyaelem>'9' )
+                        		break;
                             try {
                                 int robotnum = Integer.parseInt(Character.toString(palyaelem));
                                 this.robotkezdo[robotnum] = cellak[x][y];
@@ -101,10 +102,13 @@ public class Palya {
                     }
                 }
             }
-            scanner.close();
+            
         } catch (FileNotFoundException ex) {
             Logger.printCallEnd();
             return false;
+        } finally {
+        	if(scanner != null )
+        		scanner.close();        	
         }
         Logger.printCallEnd();
         return true;

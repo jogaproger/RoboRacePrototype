@@ -39,13 +39,38 @@ public abstract class AbstractRobot extends JatekObj{
 		allapot = RobotAllapot.HALOTT;
 		Logger.printCallEnd();
 	}
+
+	protected void ugrik(Sebesseg seb){
+		ugrik( cella.getKov(seb) );
+	}
+
+	protected void ugrik(Cella celcella){
+		cella.remove(this);
+		forras = cella;
+		cel = celcella;
+		allapot = RobotAllapot.UGRO;	
+	}
 	
 	/**
 	 * Robot pillanatnyi mukodesenek vegrehajtasa
 	 */
 	public void simulate(){
 		Logger.printCall(this);
+		switch( allapot ){
+		case ALLO:
+			if( !seb.isNulla() )
+				ugrik(seb);
+			break;
+		case HALOTT:
+			break;
+		case UGRO:
+				ugrasido++;
+			break;
+		default:
+			break;		
 		
+		}
+		if( !seb.isNulla )
 		Logger.printCallEnd();
 	}
 	

@@ -1,5 +1,8 @@
 package modell.palya;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Sebesseg {
 
     int x, y;
@@ -77,6 +80,29 @@ public class Sebesseg {
 	@Override
 	public String toString() {
 		return "[" + x + "," + y + "]";
+	}
+
+	public List<Irany> iranySet() {
+		ArrayList<Irany> ret = new ArrayList<Irany>();
+		
+		int a = x;
+		int b = y;
+		
+		while( a > 0 ){
+			a--;ret.add(Irany.Jobbra);
+		}		
+		while( a < 0 ){
+			a++;ret.add(Irany.Balra);
+		}
+		
+		while( b > 0 ){
+			b--;ret.add(Irany.Le);
+		}		
+		while( b < 0 ){
+			b++;ret.add(Irany.Fel);
+		}
+		
+		return ret;
 	}    
     
     
