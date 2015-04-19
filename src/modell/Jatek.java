@@ -41,7 +41,7 @@ public class Jatek {
 		kezdoIndex = 0;
 		
 		palya = new Palya(this);
-		if( palyafajl == null || !palya.betolt(palyafajl));
+		if( palyafajl == null || !palya.betolt(palyafajl))
 			palya.szerkeszt();
 		
 		for( int i = 0 ; i < jatekosnum ; i++ )
@@ -87,36 +87,44 @@ public class Jatek {
 	 */	
 	public void futtat( double jatekidoSec ){
 		Logger.printCall(this);
+		
+		System.out.println("Jatek kezdes:");
 		int skipnum = 0;
 		
 		for( int tick = 0 ; tick < jatekidoSec*Main.getTicksPerSecond() ; tick++ )
 		{
 			if( skipnum <= 0 )
 			{
+				minden_jatekosra:
 				for( Jatekos jatekos:jatekosok )
 				{
+					System.out.println("Jatekos:" + jatekos.getSorszam() + ".");
 					String line;
 					String cmd[] = null;
 					
-					if( (line = Input.getLine()) != null )
-						break;
-	
-					cmd = line.toUpperCase().split(" ");
-					
-					if( cmd[0].equals("IRANYIT") )
-						if(!parancsIranyit( cmd, jatekos ))
-							System.out.println("Ervenytelen parancs");
-					
-					if( cmd[0].equals("IRANYIT") )
-						if(!parancsIranyit( cmd, jatekos ))
-							System.out.println("Ervenytelen parancs");	
-					
-					if( cmd[0].equals("NEXT") )
-						continue;
-					
-					if( cmd[0].equals("SKIP") ){
-						skipnum = parancsSkip( cmd );
-						break;
+					// Jatekosonkent adhatunk akarhany parancsot:
+					while( (line = Input.getLine()) != null )
+					{	
+						cmd = line.toUpperCase().split(" ");
+						
+						if( cmd[0].equals("IRANYIT") ){
+							if(!parancsIranyit( cmd, jatekos ))
+								System.out.println("Iranyit - Ervenytelen parameter");
+						}
+						else if( cmd[0].equals("NEXT") )
+							break;
+						
+						else if( cmd[0].equals("INFO") )
+							palya.info();
+						
+						else if( cmd[0].equals("LERAK") )
+							if(!parancsLerak(cmd, jatekos))
+								System.out.println("Lerak - Ervenytelen parameter");
+						
+						else if( cmd[0].equals("SKIP") ){
+							skipnum = parancsSkip( cmd );
+							break minden_jatekosra;
+						}
 					}
 				}
 			}
@@ -132,6 +140,22 @@ public class Jatek {
 		Logger.printCallEnd();
 	}
 	
+	
+	public boolean parancsLerak(String[] cmd, Jatekos jatekos) {
+		if( cmd.length < 2 )
+			return false;
+		
+		if( cmd[1].equals("OLAJ") )
+			jatekos.lerakOlaj();
+	
+		else if( cmd[1].equals("RAGACS") )
+			jatekos.lerakRagacs();
+		
+		else return false;
+		
+		return true;
+	}
+
 	private int parancsSkip(String[] cmd) {
 		int ret = 1;
 		try{

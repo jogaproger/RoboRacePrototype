@@ -97,12 +97,6 @@ public class Robot extends AbstractRobot{
 		}
 		Logger.printCallEnd();
 	}
-	
-	
-	@Override
-	protected void onErkezes( Cella c ){
-		c.ralep( this );		
-	}
 
 	/**
 	 * Megcsusztatja a robotot, tehat az nem tudja majd megvaltoztatni
@@ -131,5 +125,12 @@ public class Robot extends AbstractRobot{
 	@Override
 	public String getAzon() {
 		return "J"+jatekos.getSorszam();
+	}
+	@Override
+	protected void erkezik(Cella c) {
+		cella = c;
+		c.add(this);
+		forras = cel = null;
+		c.ralep(this);
 	}
 }

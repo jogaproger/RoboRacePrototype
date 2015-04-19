@@ -51,18 +51,28 @@ public class Jatekos {
 	
 	public void iranyit( Irany i ){
 		Logger.printCall(this, i.toString() );
-			
+		robot.iranyit(i);
 		Logger.printCallEnd();		
 	}
 	
 	public void iranyit( Sebesseg seb ){
 		Logger.printCall(this, seb.toString());
-			
+		
+		for( Irany i: seb.iranySet() )
+			robot.iranyit(i);
 		Logger.printCallEnd();		
 	}
 
 	public int getSorszam() {
 		return sorszam;
+	}
+
+	public void lerakOlaj() {
+		robot.lerakOlaj();		
+	}
+
+	public void lerakRagacs() {
+		robot.lerakRagacs();
 	}
 	
 }

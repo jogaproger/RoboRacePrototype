@@ -19,7 +19,7 @@ public class Olaj extends Folt{
 	 */
 	public void simulate() {
 		Logger.printCall(this);
-		
+		elet-=1;
 		Logger.printCallEnd();
 	}
 	/**
