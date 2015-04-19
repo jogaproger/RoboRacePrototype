@@ -11,7 +11,6 @@ public abstract class AbstractRobot extends JatekObj {
      * Robot allapotat leiro belso enumeracio
      */
     protected enum RobotAllapot {
-
         HALOTT, ALLO, UGRO
     };
     /**
@@ -38,9 +37,10 @@ public abstract class AbstractRobot extends JatekObj {
     Sebesseg seb;
 
     /**
-     * Robot ugr�si ideje
+     * Robot ugrasi ideje
      */
     double totalUgrasIdoSec = 1;
+    
 
     public AbstractRobot() {
         seb = new Sebesseg();
@@ -51,6 +51,9 @@ public abstract class AbstractRobot extends JatekObj {
      * Robot elpusztitasa
      */
     public void kill() {
+    	if( cella != null )
+    		cella.remove(this);
+    	cella = null;
         allapot = RobotAllapot.HALOTT;
     }
 
@@ -82,7 +85,8 @@ public abstract class AbstractRobot extends JatekObj {
                 ugrasidoTick++;
                 if (ugrasidoTick > totalUgrasIdoSec * Main.getTicksPerSecond()) {
                     erkezik(cel);
-                    allapot = RobotAllapot.ALLO;
+                    if( allapot == RobotAllapot.UGRO )
+                    	allapot = RobotAllapot.ALLO;
                 }
 
                 break;
@@ -92,7 +96,7 @@ public abstract class AbstractRobot extends JatekObj {
         }
     }
 
-    /**
+	/**
      * Akkor hivodik meg, amikor az abstract robot leer a cellara
      *
      * @param c Celcella
@@ -107,18 +111,20 @@ public abstract class AbstractRobot extends JatekObj {
     }
 
     public void info() {
+    	System.out.print( getClass().getSimpleName() );
         switch (allapot) {
             case ALLO:
-                System.out.println("Allapot:allo");
-                System.out.println("Cella:" + cella.toString());
+                System.out.println(" allo: "+ cella.toString());
                 break;
             case UGRO:
-                System.out.println("Allapot:Ugro");
-                System.out.println("Forras cella:" + forras.toString());
-                System.out.println("cel cella:" + cel.toString());
+                System.out.print(" ugro: ");
+                System.out.print( forras.toString() + " -> ");
+                System.out.println( cel.toString() + ": " 
+                + ugrasidoTick + "/"
+                +	totalUgrasIdoSec*Main.getTicksPerSecond());
                 break;
             case HALOTT:
-                System.out.println("Allapot:Halott");
+                System.out.println("halott");
                 break;
         }
     }

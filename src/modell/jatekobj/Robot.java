@@ -1,6 +1,6 @@
 package modell.jatekobj;
 
-import modell.Jatek;
+
 import modell.Jatekos;
 import modell.palya.Cella;
 import modell.palya.Irany;
@@ -13,21 +13,17 @@ import modell.palya.Sebesseg;
 public class Robot extends AbstractRobot {
 
     /**
-     * Robot sebessege
-     */
-    private Sebesseg seb;
-    /**
      * Ragacskeszlet
      */
-    private int ragacsnum;
+    private int ragacsnum=3;
     /**
      * Olajkeszlet
      */
-    private int olajnum;
+    private int olajnum=3;
     /**
      * IRanyithatatlan-e a robot
      */
-    private boolean csusztatott;
+    private boolean csusztatott=false;
 
     /**
      *     */
@@ -40,10 +36,8 @@ public class Robot extends AbstractRobot {
         super();
 
         ragacsnum = olajnum = 3;
-        csusztatott = false;
         seb = new Sebesseg();
         this.jatekos = jatekos;
-
     }
 
     /**
@@ -62,24 +56,28 @@ public class Robot extends AbstractRobot {
     }
 
     /**
-     * Megadja, merre modosul majd a robot sebessege a kovetkezo leerkezeskor
+     * Modositja a robot allapotat ha lehetseges
      *
      * @param i Az adott irany
      */
     public void iranyit(Irany i) {
 
-        if (allapot == RobotAllapot.ALLO) {
+        if (allapot == RobotAllapot.ALLO && !csusztatott) 
             seb.modosit(i);
-        }
-
+        // Valodi jatekban csak egyszer tortenik ez a fuggvenyhivas
+        csusztatott = false;
     }
 
     /**
      * Ragacs lerakasa
      */
     public void lerakRagacs() {
-
-        cella.add(new Ragacs());
+    	
+    	if( allapot == RobotAllapot.ALLO && ragacsnum>0 )
+        {
+    		ragacsnum--;
+    		cella.add(new Ragacs());
+        }
 
     }
 
@@ -88,7 +86,11 @@ public class Robot extends AbstractRobot {
      */
     public void lerakOlaj() {
 
-        cella.add(new Olaj());
+    	if( allapot == RobotAllapot.ALLO && olajnum>0 )
+        {
+    		olajnum--;
+    		cella.add(new Olaj());
+        }
     }
 
     /**
@@ -96,6 +98,7 @@ public class Robot extends AbstractRobot {
      * sebesseget a kovetkezo lehetosegnel
      */
     public void csusztat() {
+    	csusztatott=true;
     }
 
     /**
@@ -105,9 +108,6 @@ public class Robot extends AbstractRobot {
         seb.felez();
     }
 
-//    public void info() {
-//        
-//    }
 
     @Override
     public String getAzon() {
@@ -117,8 +117,9 @@ public class Robot extends AbstractRobot {
     @Override
     protected void erkezik(Cella c) {
         cella = c;
-        c.add(this);
         forras = cel = null;
         c.ralep(this);
+        if( allapot != RobotAllapot.HALOTT )
+        	c.add(this);
     }
 }

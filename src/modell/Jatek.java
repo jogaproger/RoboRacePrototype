@@ -101,50 +101,66 @@ public class Jatek {
      *
      */
     public void futtat(double jatekidoSec) {
-
-        System.out.println("Jatek kezdes:");
-        int skipnum = 0;
-
-        for (int tick = 0; tick < jatekidoSec * Main.getTicksPerSecond(); tick++) {
-            if (skipnum <= 0) {
-                minden_jatekosra:
-                for (Jatekos jatekos : jatekosok) {
-                    System.out.println("Jatekos:" + jatekos.getSorszam() + ".");
-                    String line;
-                    String cmd[] = null;
-
-                    // Jatekosonkent adhatunk akarhany parancsot:
-                    while ((line = Input.getLine()) != null) {
-                        cmd = line.toUpperCase().split(" ");
-
-                        if (cmd[0].equals("IRANYIT")) {
-                            if (!parancsIranyit(cmd, jatekos)) {
-                                System.out.println("Iranyit - Ervenytelen parameter");
-                            }
-                        } else if (cmd[0].equals("NEXT")) {
-                            break;
-                        } else if (cmd[0].equals("INFO")) {
-                            palya.info();
-                            jatekos.robotInfo();
-                        } else if (cmd[0].equals("LERAK")) {
-                            if (!parancsLerak(cmd, jatekos)) {
-                                System.out.println("Lerak - Ervenytelen parameter");
-                            } else if (cmd[0].equals("SKIP")) {
-                                skipnum = parancsSkip(cmd);
-                                break minden_jatekosra;
-                            }
-                        }
-                    }
-                }
-            } else {
-                skipnum--;
-            }
-            // Minden jatekobjektum viselkedesenek megvalositasa
-            for (JatekObj jobj : objects) {
-                jobj.simulate();
-            }
-        }
-
+    	try{
+	        System.out.println("Jatek kezdes:");
+	        int skipnum = 0;
+	
+	        for (
+	        		int tick = 0;
+	        		!endflag && tick < jatekidoSec * Main.getTicksPerSecond(); 
+	        		tick++) 
+	        {
+	        	System.out.println(tick + ". kor");
+	            if ( --skipnum <= 0) {
+	                minden_jatekosra:
+	                for (Jatekos jatekos : jatekosok) {
+	                    System.out.println("Jatekos:" + jatekos.getSorszam() + ".");
+	                    String line;
+	                    String cmd[] = null;
+	
+	                    // Jatekosonkent adhatunk akarhany parancsot:
+	                    while ((line = Input.getLine()) != null) {
+	                        cmd = line.toUpperCase().split(" ");
+	
+	                        if (cmd[0].equals("IRANYIT")) {
+	                            if (!parancsIranyit(cmd, jatekos)) {
+	                                System.out.println("Iranyit - Ervenytelen parameter");
+	                            }
+	                        } 
+	                        else if (cmd[0].equals("NEXT")) 
+	                        {
+	                            break;
+	                        } 
+	                        else if (cmd[0].equals("INFO")) 
+	                        {
+	                            palya.info();
+	                            jatekos.robotInfo();
+	                        } 
+	                        else if (cmd[0].equals("LERAK")) 
+	                        {
+	                            if (!parancsLerak(cmd, jatekos)) 
+	                                System.out.println("Lerak - Ervenytelen parameter");
+	                        } 
+	                        else if (cmd[0].equals("SKIP")) 
+	                        {
+	                            skipnum = parancsSkip(cmd);
+	                            break minden_jatekosra;
+	                        } 
+	                        else
+	                        {
+	                        	System.out.println("Ervenytelen parancs");
+	                        }
+	                    }
+	                }
+	            }
+	            // Minden jatekobjektum viselkedesenek megvalositasa
+	            for (JatekObj jobj : objects) {
+	                jobj.simulate();
+	            }
+	        }
+    	}catch(Exception ex){
+    		ex.printStackTrace();    		
+    	}
     }
 
     public boolean parancsLerak(String[] cmd, Jatekos jatekos) {
@@ -170,7 +186,7 @@ public class Jatek {
         } catch (Exception ex) {
         }
 
-        return ret < 1 ? ret : 1;
+        return ret < 1 ? 1: ret;
     }
 
     private boolean parancsIranyit(String[] cmd, Jatekos jatekos) {
@@ -191,6 +207,7 @@ public class Jatek {
                 int y = Integer.parseInt(cmd[2]);
 
                 jatekos.iranyit(new Sebesseg(x, y));
+                return true;
             } catch (Exception ex) {
                 return false;
             }
