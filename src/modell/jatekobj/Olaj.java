@@ -1,7 +1,11 @@
 package modell.jatekobj;
 
+import main.Main;
+
 public class Olaj extends Folt {
 
+	
+	static final double eletMP = 10;
     /**
      * Default konstruktor
      */
@@ -12,7 +16,11 @@ public class Olaj extends Folt {
      * Semmit nem csinal
      */
     public void simulate() {
-        elet -= 1;
+        elet -= 100/(eletMP*Main.getTicksPerSecond()) ;
+        if( elet < 0 ){
+        	elet = 0;
+        	kill();
+        }
     }
 
     /**
@@ -20,12 +28,6 @@ public class Olaj extends Folt {
      */
     public void ralep(Robot r) {
         r.csusztat();
-    }
-
-    @Override
-    public void info() {
-		// TODO Auto-generated method stub
-
     }
 
     @Override

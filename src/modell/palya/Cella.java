@@ -40,7 +40,10 @@ public class Cella {
      */
     public void add(JatekObj j) {
 
-        o.add(j);
+    	if(!o.contains(j)){
+    		o.add(j);
+    		j.addToCella(this);
+    	}
 
     }
 
@@ -88,5 +91,9 @@ public class Cella {
             return o.get(0).getAzon();
         }
     }
+
+	public boolean ures() {
+		return o.isEmpty();
+	}
 
 }

@@ -20,14 +20,17 @@ public class KisRobot extends AbstractRobot {
 	@Override
 	public void simulate(){
 		super.simulate();
-		if( allapot==RobotAllapot.ALLO )
-			cella.accept( new TakaritoVisitor() );
-		
-	}
-
-	@Override
-	public void info() {
-		
+		if( allapot==RobotAllapot.ALLO ){
+			TakaritoVisitor tv = new TakaritoVisitor();
+			cella.accept( tv );
+			
+			if( !tv.takaritott )
+			{
+				Cella kov = cella.keresFolt();
+				if( kov != null && kov != cella)
+					ugrik( kov );		
+			}
+		}
 	}
 
 	@Override

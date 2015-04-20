@@ -28,18 +28,22 @@ public class Jatek {
      * Jateevo objektumok listaja
      */
     private ArrayList<JatekObj> objects;
+    
     /**
      * A palya, amelyen a jatek zajlik
      */
     private Palya palya;
+    
     /**
      * Jatek veget jelzi
      */
     private boolean endflag;
+    
     /**
      * Jatek kezdete ota eltelt ido
      */
     private int ido;
+
     /**
      * robotok szama a palyan
      */
@@ -74,7 +78,7 @@ public class Jatek {
      *
      */
     public void addJatekObj(JatekObj j) {
-
+    	
         this.objects.add(j);
 
     }
@@ -106,9 +110,9 @@ public class Jatek {
 	        int skipnum = 0;
 	
 	        for (
-	        		int tick = 0;
-	        		!endflag && tick < jatekidoSec * Main.getTicksPerSecond(); 
-	        		tick++) 
+        		int tick = 0;
+        		!endflag && tick < jatekidoSec * Main.getTicksPerSecond(); 
+        		tick++) 
 	        {
 	        	System.out.println(tick + ". kor");
 	            if ( --skipnum <= 0) {
@@ -121,7 +125,7 @@ public class Jatek {
 	                    // Jatekosonkent adhatunk akarhany parancsot:
 	                    while ((line = Input.getLine()) != null) {
 	                        cmd = line.toUpperCase().split(" ");
-	
+	                      
 	                        if (cmd[0].equals("IRANYIT")) {
 	                            if (!parancsIranyit(cmd, jatekos)) {
 	                                System.out.println("Iranyit - Ervenytelen parameter");
@@ -133,13 +137,18 @@ public class Jatek {
 	                        } 
 	                        else if (cmd[0].equals("INFO")) 
 	                        {
-	                            palya.info();
-	                            jatekos.robotInfo();
+	                        	if(!parancsInfo( cmd ))
+	                        		System.out.println("Info - Ervenytelen parameter");
 	                        } 
 	                        else if (cmd[0].equals("LERAK")) 
 	                        {
 	                            if (!parancsLerak(cmd, jatekos)) 
 	                                System.out.println("Lerak - Ervenytelen parameter");
+	                        }
+	                        else if (cmd[0].equals("KISROBOT")) 
+	                        {
+	                            if (!parancsKisRobot(cmd)) 
+	                                System.out.println("Kisrobot - Ervenytelen parameter");
 	                        } 
 	                        else if (cmd[0].equals("SKIP")) 
 	                        {
@@ -163,7 +172,35 @@ public class Jatek {
     	}
     }
 
-    public boolean parancsLerak(String[] cmd, Jatekos jatekos) {
+    private boolean parancsInfo(String[] cmd) {
+
+        palya.info();
+        for( JatekObj jo : this.objects)
+        	jo.info();
+        return true;
+		
+	}
+
+	private boolean parancsKisRobot(String[] cmd) {
+    	if( cmd.length< 2 )
+    	{
+    		palya.kisrobot();
+    		return true;
+    	}	
+    	else{
+    		try {
+    			int x  = Integer.parseInt(cmd[1]);
+    			int y  = Integer.parseInt(cmd[2]);
+    			if( palya.kisrobot(x, y) )
+    				return true;
+    		} catch (Exception ex) {
+    			return false;
+            }	
+    	}
+		return false;
+	}
+
+	public boolean parancsLerak(String[] cmd, Jatekos jatekos) {
         if (cmd.length < 2) {
             return false;
         }

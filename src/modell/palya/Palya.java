@@ -5,12 +5,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
+
 import modell.Jatek;
+import modell.jatekobj.JatekObj;
+import modell.jatekobj.KisRobot;
 import modell.jatekobj.Ragacs;
 import modell.jatekobj.Blokk;
 import modell.jatekobj.Olaj;
+import modell.visitors.Utkereso;
 
 /**
  * Palya osztaly
@@ -25,14 +30,14 @@ public class Palya {
      * Palyakat alkoto cellak
      */
     private Cella[][] cellak;
-    /**
-     * Jatek amelyhez a palya tartozik
-     */
-    private Jatek jatek;
+    
+    private int[][] seged;
     /**
      * Robot kezdopoziciojat tarolja
      */
     private Cella[] robotkezdo;
+    /** Palyahoz tartozo jatek */
+	private Jatek jatek;
 
     /**
      * Palya letrehozasa
@@ -41,9 +46,12 @@ public class Palya {
      *
      */
     public Palya(Jatek j) {
-
-        jatek = j;
-
+    	jatek = j;
+    }
+    
+    void create(int x, int y, JatekObj obj){
+    	jatek.addJatekObj(obj);
+    	cellak[x][y].add(obj);
     }
 
     /**
@@ -72,13 +80,13 @@ public class Palya {
                     char palyaelem = palyasor.charAt(x);
                     switch (palyaelem) {
                         case 'R':
-                            cellak[x][y].add(new Ragacs());
+                            create(x,y,new Ragacs());
                             break;
                         case 'X':
-                            cellak[x][y].add(new Blokk());
+                        	create(x,y,new Blokk());
                             break;
                         case 'O':
-                            cellak[x][y].add(new Olaj());
+                        	create(x,y,new Olaj());
 
                             break;
                         case '-':
@@ -172,15 +180,15 @@ public class Palya {
                 } else if (args[0].equals("RAGACS")) {
                     x = Integer.parseInt(args[1]);
                     y = Integer.parseInt(args[2]);
-                    this.cellaxy(x, y).add(new Ragacs());
+                    create(x,y,new Ragacs());
                 } else if (args[0].equals("OLAJ")) {
                     x = Integer.parseInt(args[1]);
                     y = Integer.parseInt(args[2]);
-                    this.cellaxy(x, y).add(new Olaj());
+                    create(x,y,new Olaj());
                 } else if (args[0].equals("BLOCK") || args[0].equals("BLOKK")) {
                     x = Integer.parseInt(args[1]);
                     y = Integer.parseInt(args[2]);
-                    this.cellaxy(x, y).add(new Blokk());
+                    create(x,y,new Blokk());
                 } else if (args[0].equals("INFO")) {
                     info();
                 } else if (args[0].equals("KESZ")) {
@@ -203,10 +211,85 @@ public class Palya {
     Cella getkov(Cella c, Sebesseg s) {
         return c.getKov(s);
     }
-
-    public Cella keresFolt(int x, int y) {
-
-        return null;
+    
+   	/**
+   	 * Megadja azt a cellát, amerre a KisRobot foltot talál
+   	 * @param x0 KisRobot x koordinátája
+   	 * @param y0 KisRobot y koordinátája
+   	 * @return
+   	 */
+    public Cella keresFolt(int x0, int y0) {
+    	if( x0 < 0 || y0 < 0 || x0 >= szelesseg || y0 >= magassag )
+    		return null;
+    	
+    	// A segedben eltarolunk egy szegelyt is
+    	for( int x = -1 ; x < szelesseg+1 ; x++ )
+    		for( int y = -1 ; y < magassag+1 ; y++ )
+    			seged[x+1][y+1] = 
+    				(x < 0 || y < 0 || x >= szelesseg || y >= magassag)
+    					? -1
+    					: szelesseg + magassag + 1;	// Vegtelennek jo lesz
+    		
+    	Utkereso kereso = new Utkereso();
+    	for( int i = 0 ; i < szelesseg ; i++ )
+    		for( int j = 0 ; j < magassag ; j++ )
+    		{
+    			int x = i+1, y = j+1;
+    			kereso.reset();
+    			cellak[i][j].accept(kereso);
+    			if( kereso.blokkol )
+    				seged[x][y] = -1;
+    			else if( kereso.folt )
+    				seged[x][y] = 0;
+    		}
+    	
+    	int iter = szelesseg > magassag ? szelesseg : magassag;
+    	for( int k = 0 ; k < iter ; k++ )
+	    	for( int i = 0 ; i < szelesseg ; i++ )
+	    		for( int j = 0 ; j < magassag ; j++ )
+	    		{
+	    			int x = i+1, y = j+1;
+	    			
+	    			if( seged[x][y] < 0 )
+	    				continue;
+	    			
+	    			if( seged[x][y] > seged[x-1][y-1] +1 )
+	    				seged[x][y] = seged[x-1][y-1] +1;
+	    			if( seged[x][y] > seged[x-1][y+0] +1 )
+	    				seged[x][y] = seged[x-1][y+0] +1;
+	    			if( seged[x][y] > seged[x-1][y+1] +1 )
+	    				seged[x][y] = seged[x-1][y+1] +1;
+	    			
+	    			if( seged[x][y] > seged[x-0][y-1] +1 )
+	    				seged[x][y] = seged[x-0][y-1] +1;
+	    			//if( seged[x][y] > seged[x-0][y+0] +1 )
+	    			//	  seged[x][y] = seged[x-0][y+0] +1;
+	    			if( seged[x][y] > seged[x-0][y+1] +1 )
+	    				seged[x][y] = seged[x-0][y+1] +1;
+	    			
+	    			if( seged[x][y] > seged[x+1][y-1] +1 )
+	    				seged[x][y] = seged[x+1][y-1] +1;
+	    			if( seged[x][y] > seged[x+1][y+0] +1 )
+	    				seged[x][y] = seged[x+1][y+0] +1;
+	    			if( seged[x][y] > seged[x+1][y+1] +1 )
+	    				seged[x][y] = seged[x+1][y+1] +1;
+	    		}
+    	
+    	x0++;
+    	y0++;
+    	int xret = x0-1, yret=y0-1;
+    	
+    	for( int dx = -1 ; dx <= +1 ; dx++ )
+        	for( int dy = -1 ; dy <= +1 ; dy++ )
+        		if( seged[xret][yret] < seged[x0+dx][y0+dy] )
+        		{
+        			xret = x0+dx;
+        			yret = y0+dy;
+        		}    	
+    	
+    	xret--;
+    	yret--;
+        return cellak[xret][yret];
     }
 
     public void info() {
@@ -216,7 +299,6 @@ public class Palya {
             elvalaszto += "-";
         }
 
-        // TODO tesztelni
         for (int y = 0; y < this.magassag; y++) {
             System.out.println(elvalaszto);
             String line = "|";
@@ -231,12 +313,16 @@ public class Palya {
     }
 
     private void generalCella(int sz, int m) {
+    	szelesseg = sz;
+    	magassag = m;
+    	
+    	seged = new int[sz+2][m+2];
         cellak = new Cella[sz][m];
-        for (int y = 0; y < m; y++) {
-            for (int x = 0; x < sz; x++) {
+        
+        for (int y = 0; y < m; y++) 
+            for (int x = 0; x < sz; x++) 
                 cellak[x][y] = new Cella(this, x, y);
-            }
-        }
+
         robotkezdo = new Cella[4];
         robotkezdo[0] = cellak[0][0];
         robotkezdo[1] = cellak[sz - 1][m - 1];
@@ -244,4 +330,27 @@ public class Palya {
         robotkezdo[3] = cellak[0][m - 1];
 
     }
+
+
+	public void kisrobot() {
+		Random random = new Random();
+		
+		for( int j = 0 ; j < 100 ; j++ )
+		{
+			int x = random.nextInt(szelesseg);
+			int y = random.nextInt(magassag);
+			if( cellak[x][y].ures() ){
+				kisrobot(x,y);
+				return;
+			}
+		}
+	}
+    
+	public boolean kisrobot(int x, int y) {
+		if( x < 0 || y < 0 || x >= szelesseg || y >= magassag )
+			return false;
+		
+		create(x,y,new KisRobot());
+		return true;
+	}
 }

@@ -26,7 +26,8 @@ public class Robot extends AbstractRobot {
     private boolean csusztatott=false;
 
     /**
-     *     */
+     * Robothoz tartozo jatekos
+     */
     private Jatekos jatekos;
 
     /**
@@ -108,14 +109,19 @@ public class Robot extends AbstractRobot {
         seb.felez();
     }
 
-
+    /**
+     * Palyakirajzolashoz azonosito lekerdezese
+     */
     @Override
     public String getAzon() {
         return "J" + jatekos.getSorszam();
     }
-
+    /**
+     * Meghívódik, amikor leérkezik a robot
+     */
     @Override
     protected void erkezik(Cella c) {
+    	jatekos.addPont((int) (100 * seb.getNagysag()));
         cella = c;
         forras = cel = null;
         c.ralep(this);

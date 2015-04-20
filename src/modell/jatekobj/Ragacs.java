@@ -20,13 +20,10 @@ public class Ragacs extends Folt{
 	public void ralep(Robot r) {
 		r.lassit();		
 		elet -= 25.1;	// 4 ugras utan igy elpusztul a ragacs
+		if( elet < 0 )
+			kill();
 	}
 
-	@Override
-	public void info() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String getAzon() {

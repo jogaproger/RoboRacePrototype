@@ -6,6 +6,8 @@ import modell.jatekobj.Folt;
 
 public class TakaritoVisitor implements JOVisitor {
 
+	public boolean takaritott = false;
+
 	@Override
 	public void visitAbstractRobot(AbstractRobot r) {
 	}
@@ -13,6 +15,7 @@ public class TakaritoVisitor implements JOVisitor {
 	@Override
 	public void visitFolt(Folt f) {
 		f.takarit();
+		takaritott = true;
 	}
 
 	@Override
