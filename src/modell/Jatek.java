@@ -114,9 +114,9 @@ public class Jatek {
 	            if ( --skipnum <= 0) {
 	                minden_jatekosra:
 	                for (Jatekos jatekos : jatekosok) {
-	                    System.out.println("Jatekos:" + jatekos.getSorszam() + ".");
 	                    String line;
 	                    String cmd[] = null;
+	                    System.out.println(jatekos.getSorszam() + ".jatekos>");
 	
 	                    // Jatekosonkent adhatunk akarhany parancsot:
 	                    while ((line = Input.getLine()) != null) {

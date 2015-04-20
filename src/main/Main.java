@@ -75,7 +75,7 @@ public class Main {
 
         String line;
         String cmd[] = null;
-
+    	System.out.print("main>");
         while ((line = Input.getLine()) != null) {
 
             cmd = line.toUpperCase().split(" ");

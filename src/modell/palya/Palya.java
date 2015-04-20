@@ -157,7 +157,7 @@ public class Palya {
         int y;
         // TODO teszteles
         while (!"kesz".equals(command)) {
-            System.out.print("palyaszerkeszto>:");
+            System.out.print("palya>:");
             try {
                 command = in.readLine();
                 String[] args = command.toUpperCase().split(" ");
@@ -254,26 +254,10 @@ public class Palya {
 	    			if( seged[x][y] < 0 )
 	    				continue;
 	    			
-	    			if( seged[x][y] < seged[x-1][y-1] -1 )
-	    				seged[x][y] = seged[x-1][y-1] -1;
-	    			if( seged[x][y] < seged[x-1][y+0] -1 )
-	    				seged[x][y] = seged[x-1][y+0] -1;
-	    			if( seged[x][y] < seged[x-1][y+1] -1 )
-	    				seged[x][y] = seged[x-1][y+1] -1;
-	    			
-	    			if( seged[x][y] < seged[x-0][y-1] -1 )
-	    				seged[x][y] = seged[x-0][y-1] -1;
-	    			//if( seged[x][y] < seged[x-0][y+0] +1 )
-	    			//	  seged[x][y] = seged[x-0][y+0] +1;
-	    			if( seged[x][y] < seged[x-0][y+1] -1 )
-	    				seged[x][y] = seged[x-0][y+1] -1;
-	    			
-	    			if( seged[x][y] < seged[x+1][y-1] -1 )
-	    				seged[x][y] = seged[x+1][y-1] -1;
-	    			if( seged[x][y] < seged[x+1][y+0] -1 )
-	    				seged[x][y] = seged[x+1][y+0] -1;
-	    			if( seged[x][y] < seged[x+1][y+1] -1 )
-	    				seged[x][y] = seged[x+1][y+1] -1;
+	    			for( int dx = -1 ; dx <= 1 ; dx++ )
+	    				for( int dy = -1 ; dy <= 1 ; dy++ )
+			    			if( seged[x][y] < seged[x+dx][y+dy] -1 )
+			    				seged[x][y] = seged[x+dx][y+dy] -1;
 	    		}
     	
     	x0++;
@@ -356,7 +340,12 @@ public class Palya {
 			}
 		}
 	}
-    
+    /**
+     * kisRobotot tesz az adott koordinatakra
+     * @param x x koordinata
+     * @param y y koordinata
+     * @return palyan vannak-e a koordinatak
+     */
 	public boolean kisrobot(int x, int y) {
 		if( x < 0 || y < 0 || x >= szelesseg || y >= magassag )
 			return false;
