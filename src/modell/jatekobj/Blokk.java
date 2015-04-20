@@ -8,6 +8,7 @@ public class Blokk extends JatekObj {
 	 * Default konstruktor
 	 */
 	public Blokk(){
+		super(null);
 	}
 	
 	/**

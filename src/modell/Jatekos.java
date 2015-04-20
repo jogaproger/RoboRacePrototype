@@ -29,11 +29,11 @@ public class Jatekos {
     int sorszam = 0;
 
     public Jatekos(String nev, Jatek jatek, int sorszam) {
-
+    	this.jatek = jatek;
         // Nev beallitasa
         this.nev = nev;
         this.sorszam = sorszam;
-        robot = new Robot(this);
+        robot = new Robot(this, jatek);
         pontszam = 0;
 
         // A jateknak is tudnia kell a robotunkrol

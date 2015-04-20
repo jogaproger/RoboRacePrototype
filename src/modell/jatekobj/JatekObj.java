@@ -1,5 +1,6 @@
 package modell.jatekobj;
 
+import modell.Jatek;
 import modell.palya.Cella;
 import modell.visitors.JOVisitor;
 
@@ -9,6 +10,11 @@ import modell.visitors.JOVisitor;
 public abstract class JatekObj {
 
     protected Cella cella;
+    protected Jatek jatek;
+    
+    public JatekObj( Jatek jatek ){
+    	this.jatek=jatek;
+    }
 
     /**
      * Pillanatnyi muveletek vegrehajtasa

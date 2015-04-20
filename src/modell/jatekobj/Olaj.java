@@ -6,6 +6,7 @@ public class Olaj extends Folt {
 
 	
 	static final double eletMP = 10;
+	
     /**
      * Default konstruktor
      */

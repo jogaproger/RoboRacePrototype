@@ -1,6 +1,7 @@
 package modell.jatekobj;
 
 
+import modell.Jatek;
 import modell.Jatekos;
 import modell.palya.Cella;
 import modell.palya.Irany;
@@ -33,8 +34,8 @@ public class Robot extends AbstractRobot {
     /**
      * Default konstruktor
      */
-    public Robot(Jatekos jatekos) {
-        super();
+    public Robot(Jatekos jatekos, Jatek jatek) {
+        super(jatek);
 
         ragacsnum = olajnum = 3;
         seb = new Sebesseg();
@@ -77,7 +78,9 @@ public class Robot extends AbstractRobot {
     	if( allapot == RobotAllapot.ALLO && ragacsnum>0 )
         {
     		ragacsnum--;
-    		cella.add(new Ragacs());
+    		JatekObj jo = new Ragacs();
+    		cella.add(jo);
+    		jatek.addJatekObj(jo);
         }
 
     }
@@ -90,7 +93,9 @@ public class Robot extends AbstractRobot {
     	if( allapot == RobotAllapot.ALLO && olajnum>0 )
         {
     		olajnum--;
-    		cella.add(new Olaj());
+    		JatekObj jo = new Olaj();
+    		cella.add(jo);
+    		jatek.addJatekObj(jo);
         }
     }
 

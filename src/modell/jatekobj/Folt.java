@@ -1,10 +1,17 @@
 package modell.jatekobj;
 
 import main.Main;
+import modell.Jatek;
 import modell.visitors.JOVisitor;
 
 public abstract class Folt extends JatekObj {
 	
+	public Folt() {
+		super(null);
+	}
+	public Folt(Jatek jatek) {
+		super(jatek);
+	}
 	/** A folt "elete", szazalekban */
 	protected double elet = 100;
 	

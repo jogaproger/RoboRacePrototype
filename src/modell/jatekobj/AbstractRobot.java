@@ -1,6 +1,7 @@
 package modell.jatekobj;
 
 import main.Main;
+import modell.Jatek;
 import modell.palya.Cella;
 import modell.palya.Sebesseg;
 import modell.visitors.JOVisitor;
@@ -42,7 +43,14 @@ public abstract class AbstractRobot extends JatekObj {
     double totalUgrasIdoSec = 1;
     
 
+    public AbstractRobot(Jatek jatek) {
+    	super(jatek);
+        seb = new Sebesseg();
+        allapot = RobotAllapot.ALLO;
+    }
+    
     public AbstractRobot() {
+    	super(null);
         seb = new Sebesseg();
         allapot = RobotAllapot.ALLO;
     }
