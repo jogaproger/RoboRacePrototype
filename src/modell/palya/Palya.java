@@ -92,13 +92,14 @@ public class Palya {
                         case '-':
                             break;
                         default:
-                            if (palyaelem < '0' || palyaelem > '9') {
+                            if (palyaelem < '1' || palyaelem > '9') {
                                 break;
                             }
                             try {
-                                int robotnum = Integer.parseInt(Character.toString(palyaelem));
+                                int robotnum = palyaelem - '0' - 1;
                                 this.robotkezdo[robotnum] = cellak[x][y];
                             } catch (Exception ex) {
+                            	ex.printStackTrace();
                                 System.out.println("Maximum 4 jatekos lehet!");
                             }
                             break;
