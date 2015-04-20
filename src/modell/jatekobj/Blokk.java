@@ -25,7 +25,6 @@ public class Blokk extends JatekObj {
 	@Override
 	public void accept(JOVisitor visitor) {
 		visitor.visitBlokk(this);
-		
 	}
 
 	@Override

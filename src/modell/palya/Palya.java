@@ -229,7 +229,7 @@ public class Palya {
     			seged[x+1][y+1] = 
     				(x < 0 || y < 0 || x >= szelesseg || y >= magassag)
     					? -1
-    					: szelesseg + magassag + 1;	// Vegtelennek jo lesz
+    					: 0;	// Minel kisebb, annal tavolibb
     		
     	Utkereso kereso = new Utkereso();
     	for( int i = 0 ; i < szelesseg ; i++ )
@@ -241,7 +241,7 @@ public class Palya {
     			if( kereso.blokkol )
     				seged[x][y] = -1;
     			else if( kereso.folt )
-    				seged[x][y] = 0;
+    				seged[x][y] = szelesseg+magassag+1;
     		}
     	
     	int iter = szelesseg > magassag ? szelesseg : magassag;
@@ -254,39 +254,49 @@ public class Palya {
 	    			if( seged[x][y] < 0 )
 	    				continue;
 	    			
-	    			if( seged[x][y] > seged[x-1][y-1] +1 )
-	    				seged[x][y] = seged[x-1][y-1] +1;
-	    			if( seged[x][y] > seged[x-1][y+0] +1 )
-	    				seged[x][y] = seged[x-1][y+0] +1;
-	    			if( seged[x][y] > seged[x-1][y+1] +1 )
-	    				seged[x][y] = seged[x-1][y+1] +1;
+	    			if( seged[x][y] < seged[x-1][y-1] -1 )
+	    				seged[x][y] = seged[x-1][y-1] -1;
+	    			if( seged[x][y] < seged[x-1][y+0] -1 )
+	    				seged[x][y] = seged[x-1][y+0] -1;
+	    			if( seged[x][y] < seged[x-1][y+1] -1 )
+	    				seged[x][y] = seged[x-1][y+1] -1;
 	    			
-	    			if( seged[x][y] > seged[x-0][y-1] +1 )
-	    				seged[x][y] = seged[x-0][y-1] +1;
-	    			//if( seged[x][y] > seged[x-0][y+0] +1 )
+	    			if( seged[x][y] < seged[x-0][y-1] -1 )
+	    				seged[x][y] = seged[x-0][y-1] -1;
+	    			//if( seged[x][y] < seged[x-0][y+0] +1 )
 	    			//	  seged[x][y] = seged[x-0][y+0] +1;
-	    			if( seged[x][y] > seged[x-0][y+1] +1 )
-	    				seged[x][y] = seged[x-0][y+1] +1;
+	    			if( seged[x][y] < seged[x-0][y+1] -1 )
+	    				seged[x][y] = seged[x-0][y+1] -1;
 	    			
-	    			if( seged[x][y] > seged[x+1][y-1] +1 )
-	    				seged[x][y] = seged[x+1][y-1] +1;
-	    			if( seged[x][y] > seged[x+1][y+0] +1 )
-	    				seged[x][y] = seged[x+1][y+0] +1;
-	    			if( seged[x][y] > seged[x+1][y+1] +1 )
-	    				seged[x][y] = seged[x+1][y+1] +1;
+	    			if( seged[x][y] < seged[x+1][y-1] -1 )
+	    				seged[x][y] = seged[x+1][y-1] -1;
+	    			if( seged[x][y] < seged[x+1][y+0] -1 )
+	    				seged[x][y] = seged[x+1][y+0] -1;
+	    			if( seged[x][y] < seged[x+1][y+1] -1 )
+	    				seged[x][y] = seged[x+1][y+1] -1;
 	    		}
     	
     	x0++;
     	y0++;
-    	int xret = x0-1, yret=y0-1;
+    	int xret = x0, yret=y0;
     	
-    	for( int dx = -1 ; dx <= +1 ; dx++ )
-        	for( int dy = -1 ; dy <= +1 ; dy++ )
-        		if( seged[xret][yret] < seged[x0+dx][y0+dy] )
-        		{
-        			xret = x0+dx;
-        			yret = y0+dy;
-        		}    	
+    	if( seged[xret][yret] < seged[x0+1][y0+0] )
+			{ xret = x0+1;	yret = y0+0;	}    	
+    	if( seged[xret][yret] < seged[x0+0][y0+1] )
+    		{ xret = x0+0;	yret = y0+1;	}    	
+    	if( seged[xret][yret] < seged[x0-1][y0+0] )
+			{ xret = x0-1;	yret = y0+0;	}    	
+    	if( seged[xret][yret] < seged[x0+0][y0-1] )
+    		{ xret = x0+0;	yret = y0-1;	}    	
+    	
+    	if( seged[xret][yret] < seged[x0+1][y0+1] )
+			{ xret = x0+1;	yret = y0+1;	}    	
+    	if( seged[xret][yret] < seged[x0+1][y0-1] )
+    		{ xret = x0+1;	yret = y0-1;	}    	
+    	if( seged[xret][yret] < seged[x0-1][y0-1] )
+			{ xret = x0-1;	yret = y0-1;	}    	
+    	if( seged[xret][yret] < seged[x0-1][y0+1] )
+    		{ xret = x0-1;	yret = y0+1;	}    	   	
     	
     	xret--;
     	yret--;

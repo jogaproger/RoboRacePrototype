@@ -39,10 +39,6 @@ public class Jatek {
      */
     private boolean endflag;
     
-    /**
-     * Jatek kezdete ota eltelt ido
-     */
-    private int ido;
 
     /**
      * robotok szama a palyan
@@ -134,6 +130,10 @@ public class Jatek {
 	                        else if (cmd[0].equals("NEXT")) 
 	                        {
 	                            break;
+	                        } 	                       
+	                        else if (cmd[0].equals("KILEP")) 
+	                        {
+	                            kilepes();
 	                        } 
 	                        else if (cmd[0].equals("INFO")) 
 	                        {

@@ -51,9 +51,6 @@ public abstract class AbstractRobot extends JatekObj {
      * Robot elpusztitasa
      */
     public void kill() {
-    	if( cella != null )
-    		cella.remove(this);
-    	cella = null;
         allapot = RobotAllapot.HALOTT;
     }
 
@@ -73,6 +70,7 @@ public abstract class AbstractRobot extends JatekObj {
      * Robot pillanatnyi mukodesenek vegrehajtasa
      */
     public void simulate() {
+    	
         switch (allapot) {
             case ALLO:
                 if (!seb.isNulla()) {
@@ -80,6 +78,9 @@ public abstract class AbstractRobot extends JatekObj {
                 }
                 break;
             case HALOTT:
+            	if( cella != null )
+            		cella.remove(this);
+            	cella = null;
                 break;
             case UGRO:
                 ugrasidoTick++;
