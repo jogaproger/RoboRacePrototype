@@ -17,10 +17,7 @@ public class Olaj extends Folt {
      */
     public void simulate() {
         elet -= 100/(eletMP*Main.getTicksPerSecond()) ;
-        if( elet < 0 ){
-        	elet = 0;
-        	kill();
-        }
+        super.simulate();
     }
 
     /**

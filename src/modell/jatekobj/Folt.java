@@ -11,20 +11,21 @@ public abstract class Folt extends JatekObj {
 	/** Ennyi idobe telik feltakaritani a foltot */
 	protected double takaritidoSec = 2;
 	
-	protected void kill(){
-		if( cella != null )
-			cella.remove(this);
-		cella = null;
-	}
-	
 	public final void takarit() {
 		
 		double dt = 1.0 / Main.getTicksPerSecond();
 		double takaritSebesseg = 100/takaritidoSec;
 		elet -= dt * takaritSebesseg;
+
+	}
+	
+	public void simulate() {
+		if( cella == null )
+			return;
 		if( elet < 0.0 ){
 			elet = 0.0;
-			kill();
+			cella.remove(this);
+			cella = null;
 		}
 	}
 	

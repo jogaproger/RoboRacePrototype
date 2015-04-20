@@ -10,18 +10,11 @@ public class Ragacs extends Folt{
 	}
 	
 	/**
-	 * Semmit nem csinal
-	 */
-	public void simulate() {
-	}
-	/**
 	 * Lelassitja a robotot
 	 */
 	public void ralep(Robot r) {
 		r.lassit();		
 		elet -= 25.1;	// 4 ugras utan igy elpusztul a ragacs
-		if( elet < 0 )
-			kill();
 	}
 
 
