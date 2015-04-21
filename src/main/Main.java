@@ -1,6 +1,7 @@
 package main;
 
 import modell.Jatek;
+import modell.Ranglista;
 
 public class Main {
 
@@ -86,6 +87,10 @@ public class Main {
 
             if (cmd[0].equals("TICK")) {
                 parancsTick(cmd);
+            }
+
+            if (cmd[0].equals("RANGLISTA")) {
+                new Ranglista().megjelenit();
             }
 
             if (cmd[0].equals("EXIT")) {

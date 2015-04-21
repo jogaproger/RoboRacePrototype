@@ -9,11 +9,7 @@ import modell.palya.Sebesseg;
  */
 public class Jatekos {
 
-    /**
-     * Jatek, amelyhez a jatekos tartozik
-     */
-    private Jatek jatek;
-    /**
+	/**
      * Jatekos pontszama
      */
     private int pontszam;
@@ -29,8 +25,7 @@ public class Jatekos {
     int sorszam = 0;
 
     public Jatekos(String nev, Jatek jatek, int sorszam) {
-    	this.jatek = jatek;
-        // Nev beallitasa
+    	// Nev beallitasa
         this.nev = nev;
         this.sorszam = sorszam;
         robot = new Robot(this, jatek);
@@ -42,11 +37,11 @@ public class Jatekos {
     }
 
     public void addPont(int p) {
-
+    	pontszam += p;
     }
-
+    
     public void commitPont(Ranglista r) {
-
+    	r.commit(nev, pontszam);
     }
 
     public void iranyit(Irany i) {

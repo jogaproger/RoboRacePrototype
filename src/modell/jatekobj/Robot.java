@@ -82,6 +82,8 @@ public class Robot extends AbstractRobot {
     		cella.add(jo);
     		jatek.addJatekObj(jo);
         }
+    	if( ragacsnum <= 0 )
+    		System.out.println("Nincs eleg ragacs");
 
     }
 
@@ -97,6 +99,8 @@ public class Robot extends AbstractRobot {
     		cella.add(jo);
     		jatek.addJatekObj(jo);
         }
+    	if( olajnum <= 0 )
+    		System.out.println("Nincs eleg olaj");
     }
 
     /**

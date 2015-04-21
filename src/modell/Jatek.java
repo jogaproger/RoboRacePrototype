@@ -134,6 +134,7 @@ public class Jatek {
 	                        else if (cmd[0].equals("KILEP")) 
 	                        {
 	                            kilepes();
+	                            break minden_jatekosra;
 	                        } 
 	                        else if (cmd[0].equals("INFO")) 
 	                        {
@@ -167,6 +168,10 @@ public class Jatek {
 	                jobj.simulate();
 	            }
 	        }
+
+            for (Jatekos jatekos : jatekosok)
+            	jatekos.commitPont(new Ranglista());
+	       
     	}catch(Exception ex){
     		ex.printStackTrace();    		
     	}

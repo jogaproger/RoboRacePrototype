@@ -65,7 +65,7 @@ public class Palya {
         Scanner scanner = null;
         try {
             scanner = new Scanner(file);
-            if (scanner.hasNext()) {
+            if (scanner.hasNextLine()) {
                 String[] palyameret = scanner.nextLine().split(" ");
                 this.szelesseg = Integer.parseInt(palyameret[0]);
                 this.magassag = Integer.parseInt(palyameret[1]);
